@@ -1,6 +1,8 @@
+import 'dart:developer' as developer;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as developer;
+import 'ChartList.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,8 +31,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Your Bets')),
+      appBar: AppBar(
+        title: Text('Your Bets'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.list), onPressed: _openSignup),
+        ],
+      ),
       body: _buildBody(context),
+    );
+  }
+
+  void _openSignup() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (context) {
+          return ChartList();
+        },
+      ),
     );
   }
 
@@ -67,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListTile(
           title: Text(record.name),
           trailing: Text(record.votes.toString()),
-          onTap: () => record.reference.updateData({'votes': record.votes + 1}),
+          onTap: () => record.reference.updateData({'votes': FieldValue.increment(1)}),
         ),
       ),
     );
