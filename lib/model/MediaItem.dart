@@ -25,6 +25,7 @@ class MediaItemResponse {
         plays: json['plays'],
         likes: json['likes'],
         comments: json['comments'],
+        artistName: json['artist_name'],
         coverImage: json['cover_image_path'],
         filePath: json['music_file_path']);
   }
