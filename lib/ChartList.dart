@@ -1,8 +1,14 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'model/MediaItem.dart';
 import 'network/MediaRepository.dart';
+import 'styles.dart';
+import 'Positions.dart';
+
+void main() => runApp(ChartList());
 
 class ChartList extends StatelessWidget {
   @override
@@ -37,8 +43,21 @@ class _ChartListHome extends State<ChartListHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Weekly Chart')),
+      appBar: AppBar(title: Text('Weekly Chart'), centerTitle: true,
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.developer_board, color: Colors.cyanAccent,), onPressed: _openPositions),
+        ],),
       body: _buildBody(context),
+    );
+  }
+
+  void _openPositions() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (context) {
+          return MyPositions();
+        },
+      ),
     );
   }
 
@@ -62,7 +81,7 @@ class _ChartListHome extends State<ChartListHome> {
 
   Widget _buildList(BuildContext context, List<MediaItemResponse> snapshot) {
     return ListView(
-      padding: const EdgeInsets.only(top: 2.0),
+      padding: const EdgeInsets.only(top: 0.0),
       children: snapshot.map((data) => _buildListItem(context, data)).toList(),
     );
   }
@@ -70,32 +89,40 @@ class _ChartListHome extends State<ChartListHome> {
   Widget _buildListItem(BuildContext context, MediaItemResponse data) {
     return Padding(
       key: ValueKey(data.id),
-      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
-      child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
+      child: Card(
+        elevation: 4.0,
         child: ListTile(
-            title: Text("${data.name}"),
-            subtitle: Text("${data.artistName}",
-                style: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.0,
-                    color: Colors.grey)),
-            leading: Image.network(
-              data.coverImage,
-              cacheHeight: 52,
-              cacheWidth: 52,
+            title: Text("${data.name}",
+                maxLines: 1,
+                style: Styles.mediaRowItemName,
+                overflow: TextOverflow.ellipsis),
+            subtitle: Text("${data.artistName}", style: Styles.mediaRowArtistName),
+            leading: CachedNetworkImage(
+              imageUrl: data.coverImage,
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+              width: 72,
+              height: 72,
             ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Chip(
-                  label: Icon(Icons.trending_up),
+                ActionChip(
+                  label: Icon(Icons.trending_up, color: Colors.white, semanticLabel: "hey",),
                   backgroundColor: Colors.lightBlue,
-                  labelPadding: const EdgeInsets.only(right: 2.0, left: 2.0),
+                  onPressed: () {
+                    print("Up to: ${data.name}");
+                  },
                 ),
-                Chip(
-                  label: Icon(Icons.trending_down),
+                Padding(padding: const EdgeInsets.only(left: 8.0),),
+                ActionChip(
+                  label: Icon(Icons.trending_down, color: Colors.black,),
                   backgroundColor: Colors.red,
-                  labelPadding: const EdgeInsets.only(right: 2.0, left: 2.0),
+                  shadowColor: Colors.white30,
+                  onPressed: () {
+                    print("Down to: ${data.name}");
+                  },
                 ),
               ],
             )),

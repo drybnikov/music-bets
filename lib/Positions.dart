@@ -2,11 +2,8 @@ import 'dart:developer' as developer;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'ChartList.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
+class Positions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,39 +12,29 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.amber,
       ),
-      home: MyHomePage(),
+      home: MyPositions(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyPositions extends StatefulWidget {
   @override
-  _MyHomePageState createState() {
-    return _MyHomePageState();
+  _MyPositionsState createState() {
+    return _MyPositionsState();
   }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyPositionsState extends State<MyPositions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Your Bets'),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.list), onPressed: _openSignup),
+          IconButton(icon: Icon(Icons.list)),
         ],
       ),
       body: _buildBody(context),
-    );
-  }
-
-  void _openSignup() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) {
-          return ChartList();
-        },
-      ),
     );
   }
 
