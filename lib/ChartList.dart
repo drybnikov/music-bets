@@ -1,12 +1,14 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 
+import 'AudioPlayerDemo.dart';
+import 'Positions.dart';
 import 'model/MediaItem.dart';
 import 'network/MediaRepository.dart';
 import 'styles.dart';
-import 'Positions.dart';
 
 void main() => runApp(ChartList());
 
@@ -33,6 +35,7 @@ class ChartListHome extends StatefulWidget {
 
 class _ChartListHome extends State<ChartListHome> {
   Future<List<MediaItemResponse>> futureChartList;
+  String currentItem = "";
 
   @override
   void initState() {
@@ -98,13 +101,7 @@ class _ChartListHome extends State<ChartListHome> {
                 style: Styles.mediaRowItemName,
                 overflow: TextOverflow.ellipsis),
             subtitle: Text("${data.artistName}", style: Styles.mediaRowArtistName),
-            leading: CachedNetworkImage(
-              imageUrl: data.coverImage,
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-              width: 72,
-              height: 72,
-            ),
+            leading: _buildCoverImage(context, data),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -121,12 +118,46 @@ class _ChartListHome extends State<ChartListHome> {
                   backgroundColor: Colors.red,
                   shadowColor: Colors.white30,
                   onPressed: () {
-                    print("Down to: ${data.name}");
+                    final snackBar = SnackBar(content: Text("Down to: ${data.name}"));
+                    Scaffold.of(context).showSnackBar(snackBar);
                   },
                 ),
               ],
             )),
       ),
     );
+  }
+
+  Widget _buildCoverImage(BuildContext context, MediaItemResponse data) {
+    final bool itemSelected = data.id == currentItem;
+    developer.log("_buildCoverImage itemSelected:$itemSelected, id:${data.id}");
+
+    return InkWell(
+      onTap: () {
+        print("tapped on:${data.id}");
+        setState(() {
+          currentItem = data.id;
+        });
+      },
+      child: Stack(
+          children: <Widget>[
+            Container(
+              child: CachedNetworkImage(
+                imageUrl: data.coverImage,
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                width: 72,
+                height: 72,
+              ),
+            ),
+
+            itemSelected ? _buildPlayer(context, data) : Icon(Icons.error)
+          ]
+      ),
+    );
+  }
+
+  Widget _buildPlayer(BuildContext context, MediaItemResponse data) {
+    return AudioPlayerDemo(data.filePath);
   }
 }

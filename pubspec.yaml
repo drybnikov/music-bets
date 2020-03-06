@@ -26,6 +26,7 @@ dependencies:
   cloud_firestore: ^0.13.0+1
   http: ^0.12.0+4
   cached_network_image: ^2.0.0
+  audio: ^0.0.5
 
 dev_dependencies:
   flutter_test:
