@@ -6,13 +6,18 @@ import 'package:flutter/material.dart';
 
 import 'AudioPlayerDemo.dart';
 import 'Positions.dart';
+import 'login.dart';
 import 'model/MediaItem.dart';
 import 'network/MediaRepository.dart';
 import 'styles.dart';
 
-void main() => runApp(ChartList());
+void main() => runApp(MyApp());
 
 class ChartList extends StatelessWidget {
+  final String currentUserId;
+
+  ChartList({Key key, @required this.currentUserId}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
