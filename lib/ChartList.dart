@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'AudioPlayerDemo.dart';
 import 'Positions.dart';
 import 'login.dart';
+import 'googleLogin.dart';
 import 'model/MediaItem.dart';
 import 'network/MediaRepository.dart';
 import 'styles.dart';
@@ -51,10 +52,18 @@ class _ChartListHome extends State<ChartListHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Weekly Chart'), centerTitle: true,
+      appBar: AppBar(
+        title: Text('Weekly Chart'),
+        centerTitle: true,
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.developer_board, color: Colors.cyanAccent,), onPressed: _openPositions),
-        ],),
+          IconButton(
+              icon: Icon(
+                Icons.developer_board,
+                color: Colors.cyanAccent,
+              ),
+              onPressed: _openPositions),
+        ],
+      ),
       body: _buildBody(context),
     );
   }
@@ -105,25 +114,36 @@ class _ChartListHome extends State<ChartListHome> {
                 maxLines: 1,
                 style: Styles.mediaRowItemName,
                 overflow: TextOverflow.ellipsis),
-            subtitle: Text("${data.artistName}", style: Styles.mediaRowArtistName),
+            subtitle:
+                Text("${data.artistName}", style: Styles.mediaRowArtistName),
             leading: _buildCoverImage(context, data),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 ActionChip(
-                  label: Icon(Icons.trending_up, color: Colors.white, semanticLabel: "hey",),
+                  label: Icon(
+                    Icons.trending_up,
+                    color: Colors.white,
+                    semanticLabel: "hey",
+                  ),
                   backgroundColor: Colors.lightBlue,
                   onPressed: () {
                     print("Up to: ${data.name}");
                   },
                 ),
-                Padding(padding: const EdgeInsets.only(left: 8.0),),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                ),
                 ActionChip(
-                  label: Icon(Icons.trending_down, color: Colors.black,),
+                  label: Icon(
+                    Icons.trending_down,
+                    color: Colors.black,
+                  ),
                   backgroundColor: Colors.red,
                   shadowColor: Colors.white30,
                   onPressed: () {
-                    final snackBar = SnackBar(content: Text("Down to: ${data.name}"));
+                    final snackBar =
+                        SnackBar(content: Text("Down to: ${data.name}"));
                     Scaffold.of(context).showSnackBar(snackBar);
                   },
                 ),
@@ -144,21 +164,18 @@ class _ChartListHome extends State<ChartListHome> {
           currentItem = data.id;
         });
       },
-      child: Stack(
-          children: <Widget>[
-            Container(
-              child: CachedNetworkImage(
-                imageUrl: data.coverImage,
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-                width: 72,
-                height: 72,
-              ),
-            ),
-
-            itemSelected ? _buildPlayer(context, data) : Icon(Icons.error)
-          ]
-      ),
+      child: Stack(children: <Widget>[
+        Container(
+          child: CachedNetworkImage(
+            imageUrl: data.coverImage,
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+            width: 72,
+            height: 72,
+          ),
+        ),
+        itemSelected ? _buildPlayer(context, data) : Icon(Icons.error)
+      ]),
     );
   }
 

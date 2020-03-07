@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Music Bets',
       theme: ThemeData(
         brightness: Brightness.dark,
-        primarySwatch: themeColor,
+        primarySwatch: Colors.amber,
       ),
       home: LoginScreen(title: 'Music Bets'),
       debugShowCheckedModeBanner: false,
@@ -148,7 +148,6 @@ class LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           title: Text(
             widget.title,
-            style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
         ),
