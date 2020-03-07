@@ -25,32 +25,33 @@ class AudioPlayerDemoState extends State<AudioPlayerDemo> {
 
   @override
   void initState() {
-    _playerStateSubscription = audioPlayer.onPlayerStateChanged.listen((AudioPlayerState state) {
+    _playerStateSubscription =
+        audioPlayer.onPlayerStateChanged.listen((AudioPlayerState state) {
       print("onPlayerStateChanged: ${audioPlayer.uid} $state");
 
-      if (mounted)
-        setState(() => this.state = state);
+      if (mounted) setState(() => this.state = state);
 
-      if (state == AudioPlayerState.READY)
-        onPlay();
+      if (mounted && state == AudioPlayerState.READY) onPlay();
     });
 
-    _playerPositionController = audioPlayer.onPlayerPositionChanged.listen((double position) {
-      print("onPlayerPositionChanged: ${audioPlayer.uid} $position ${audioPlayer.duration}");
+    _playerPositionController =
+        audioPlayer.onPlayerPositionChanged.listen((double position) {
+      print(
+          "onPlayerPositionChanged: ${audioPlayer.uid} $position ${audioPlayer.duration}");
 
-      if (mounted)
-        setState(() => this.position = position);
+      if (mounted) setState(() => this.position = position);
     });
 
-    _playerBufferingSubscription = audioPlayer.onPlayerBufferingChanged.listen((int percent) {
+    _playerBufferingSubscription =
+        audioPlayer.onPlayerBufferingChanged.listen((int percent) {
       print("onPlayerBufferingChanged: ${audioPlayer.uid} $percent");
 
-      if (mounted && buffering != percent)
-        setState(() => buffering = percent);
+      if (mounted && buffering != percent) setState(() => buffering = percent);
     });
 
-    _playerErrorSubscription = audioPlayer.onPlayerError.listen((AudioPlayerError error) {
-      throw("onPlayerError: ${error.code} ${error.message}");
+    _playerErrorSubscription =
+        audioPlayer.onPlayerError.listen((AudioPlayerError error) {
+      throw ("onPlayerError: ${error.code} ${error.message}");
     });
 
     audioPlayer.preload(widget.url);
@@ -62,7 +63,8 @@ class AudioPlayerDemoState extends State<AudioPlayerDemo> {
   Widget build(BuildContext context) {
     Widget status = Container();
 
-    print("[build] uid=${audioPlayer.uid} duration=${audioPlayer.duration} state=$state");
+    print(
+        "[build] uid=${audioPlayer.uid} duration=${audioPlayer.duration} state=$state");
 
     switch (state) {
       case AudioPlayerState.LOADING:
@@ -74,20 +76,22 @@ class AudioPlayerDemoState extends State<AudioPlayerDemo> {
                 height: 24.0,
                 child: Center(
                     child: Stack(
-                      alignment: AlignmentDirectional.center,
-                      children: <Widget>[
-                        CircularProgressIndicator(strokeWidth: 2.0),
-                        Text("${buffering}%", style: TextStyle(fontSize: 8.0), textAlign: TextAlign.center)
-                      ],
-                    )),
-              )
-          );
+                  alignment: AlignmentDirectional.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(strokeWidth: 2.0),
+                    Text("${buffering}%",
+                        style: TextStyle(fontSize: 8.0),
+                        textAlign: TextAlign.center)
+                  ],
+                )),
+              ));
           break;
         }
 
       case AudioPlayerState.PLAYING:
         {
-          status = IconButton(icon: Icon(Icons.pause, size: 28.0), onPressed: onPause);
+          status = IconButton(
+              icon: Icon(Icons.pause, size: 28.0), onPressed: onPause);
           break;
         }
 
@@ -95,10 +99,10 @@ class AudioPlayerDemoState extends State<AudioPlayerDemo> {
       case AudioPlayerState.PAUSED:
       case AudioPlayerState.STOPPED:
         {
-          status = IconButton(icon: Icon(Icons.play_arrow, size: 28.0), onPressed: onPlay);
+          status = IconButton(
+              icon: Icon(Icons.play_arrow, size: 28.0), onPressed: onPlay);
 
-          if (state == AudioPlayerState.STOPPED)
-            audioPlayer.seek(0.0);
+          if (state == AudioPlayerState.STOPPED) audioPlayer.seek(0.0);
 
           break;
         }
@@ -110,10 +114,12 @@ class AudioPlayerDemoState extends State<AudioPlayerDemo> {
         child: Row(
           children: <Widget>[
             status,
-            Text("${(position / 1000).toStringAsFixed(1)}s", style: const TextStyle(fontSize: 10),)
+            Text(
+              "${(position / 1000).toStringAsFixed(1)}s",
+              style: const TextStyle(fontSize: 10),
+            )
           ],
-        )
-    );
+        ));
   }
 
   @override
@@ -127,7 +133,11 @@ class AudioPlayerDemoState extends State<AudioPlayerDemo> {
   }
 
   onPlay() {
-    audioPlayer.play(widget.url);
+    try {
+      if (audioPlayer != null) audioPlayer.play(widget.url);
+    } catch (error) {
+      print(error);
+    }
   }
 
   onPause() {
