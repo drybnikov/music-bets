@@ -15,5 +15,8 @@ Future<List<MediaItemResponse>> fetchChartList() async {
 
 List<MediaItemResponse> _parseMediaItems(String responseBody) {
   final parsed = jsonDecode(responseBody) as List;
-  return parsed.map((json) => MediaItemResponse.fromJson(json)).toList();
+  int position = 0;
+  return parsed
+      .map((json) => MediaItemResponse.fromJson(json, position++))
+      .toList();
 }

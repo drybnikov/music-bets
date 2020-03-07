@@ -3,11 +3,11 @@ import 'dart:developer' as developer;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'AudioPlayerDemo.dart';
 import 'Positions.dart';
 import 'login.dart';
-import 'googleLogin.dart';
 import 'model/MediaItem.dart';
 import 'network/MediaRepository.dart';
 import 'styles.dart';
@@ -27,19 +27,25 @@ class ChartList extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.amber,
       ),
-      home: ChartListHome(),
+      home: ChartListHome(currentUserId: currentUserId),
     );
   }
 }
 
 class ChartListHome extends StatefulWidget {
+  final String currentUserId;
+  ChartListHome({Key key, @required this.currentUserId}) : super(key: key);
+
   @override
   _ChartListHome createState() {
-    return _ChartListHome();
+    return _ChartListHome(currentUserId: currentUserId);
   }
 }
 
 class _ChartListHome extends State<ChartListHome> {
+  _ChartListHome({Key key, @required this.currentUserId});
+
+  final String currentUserId;
   Future<List<MediaItemResponse>> futureChartList;
   String currentItem = "";
 
@@ -72,7 +78,7 @@ class _ChartListHome extends State<ChartListHome> {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-          return MyPositions();
+          return MyPositions(currentUserId: currentUserId);
         },
       ),
     );
@@ -128,7 +134,7 @@ class _ChartListHome extends State<ChartListHome> {
                   ),
                   backgroundColor: Colors.lightBlue,
                   onPressed: () {
-                    print("Up to: ${data.name}");
+                    handleCreatePosition(data, "up");
                   },
                 ),
                 Padding(
@@ -142,15 +148,40 @@ class _ChartListHome extends State<ChartListHome> {
                   backgroundColor: Colors.red,
                   shadowColor: Colors.white30,
                   onPressed: () {
-                    final snackBar =
-                        SnackBar(content: Text("Down to: ${data.name}"));
-                    Scaffold.of(context).showSnackBar(snackBar);
+                    handleCreatePosition(data, "down");
                   },
                 ),
               ],
             )),
       ),
     );
+  }
+
+  Future<Null> handleCreatePosition(
+      MediaItemResponse data, String direction) async {
+    String positionId = DateTime.now().millisecondsSinceEpoch.toString();
+    Firestore.instance
+        .collection('positions')
+        .document(currentUserId)
+        .collection(currentUserId)
+        .document(positionId)
+        .setData({
+      'userid': currentUserId,
+      'id': data.id,
+      'direction': direction,
+      'size': 10,
+      'createdAt': positionId,
+      'name': data.name,
+      'artistName': data.artistName,
+      'coverImage': data.coverImage,
+      'filePath': data.filePath,
+      'startPosition': data.position
+    }); //.whenComplete(showPositionCreated);
+
+    /*final snackBar = SnackBar(
+        content: Text(
+            "Position opened: ${data.name}, size:10, direction:$direction"));
+    Scaffold.of(context).showSnackBar(snackBar);*/
   }
 
   Widget _buildCoverImage(BuildContext context, MediaItemResponse data) {
