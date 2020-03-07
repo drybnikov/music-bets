@@ -2,6 +2,7 @@ import 'dart:developer' as developer;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'styles.dart';
 
@@ -35,6 +36,8 @@ class MyPositions extends StatefulWidget {
 class _MyPositionsState extends State<MyPositions> {
   final String currentUserId;
   _MyPositionsState({Key key, @required this.currentUserId});
+
+  var dateFormater = new DateFormat("hh:mm:ss");
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +75,8 @@ class _MyPositionsState extends State<MyPositions> {
     final direction = position.direction == "up" ? '+' : '-';
     final directionColor =
         position.direction == "up" ? Colors.blue : Colors.red;
+    final expired = dateFormater
+        .format(DateTime.fromMicrosecondsSinceEpoch(position.createdAt));
     developer.log(position.toString());
 
     return Padding(
@@ -86,7 +91,7 @@ class _MyPositionsState extends State<MyPositions> {
                 style: Styles.mediaRowItemName,
                 overflow: TextOverflow.ellipsis),
             subtitle: Text(
-                "Opened:${position.createdAt} #${position.startPosition}, current:${position.startPosition}",
+                "Expired:$expired #${position.startPosition}, current:${position.startPosition}",
                 style: Styles.mediaRowArtistName),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
@@ -117,7 +122,7 @@ class Position {
   final String id;
   final String direction;
   final int size;
-  final String createdAt;
+  final int createdAt;
   final String name;
   final String artistName;
   final String coverImage;
