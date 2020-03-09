@@ -134,7 +134,7 @@ class _ChartListHome extends State<ChartListHome> {
                   ),
                   backgroundColor: Colors.lightBlue,
                   onPressed: () {
-                    handleCreatePosition(data, "up");
+                    handleCreatePosition(context, data, "up");
                   },
                 ),
                 Padding(
@@ -148,7 +148,7 @@ class _ChartListHome extends State<ChartListHome> {
                   backgroundColor: Colors.red,
                   shadowColor: Colors.white30,
                   onPressed: () {
-                    handleCreatePosition(data, "down");
+                    handleCreatePosition(context, data, "down");
                   },
                 ),
               ],
@@ -158,7 +158,7 @@ class _ChartListHome extends State<ChartListHome> {
   }
 
   Future<Null> handleCreatePosition(
-      MediaItemResponse data, String direction) async {
+      BuildContext context, MediaItemResponse data, String direction) async {
     String positionId = DateTime.now().millisecondsSinceEpoch.toString();
     Firestore.instance
         .collection('positions')
@@ -178,10 +178,16 @@ class _ChartListHome extends State<ChartListHome> {
       'startPosition': data.position
     }); //.whenComplete(showPositionCreated);
 
-    /*final snackBar = SnackBar(
+    final snackBar = SnackBar(
+        backgroundColor: Colors.white70,
         content: Text(
-            "Position opened: ${data.name}, size:10, direction:$direction"));
-    Scaffold.of(context).showSnackBar(snackBar);*/
+            "Position opened:\nname: ${data.name}\nsize: 10\ndirection: $direction\nreference: #$positionId"),
+        action: SnackBarAction(
+          label: "POSITIONS",
+          textColor: direction == "up" ? Colors.blue : Colors.red,
+          onPressed: _openPositions,
+        ));
+    Scaffold.of(context).showSnackBar(snackBar);
   }
 
   Widget _buildCoverImage(BuildContext context, MediaItemResponse data) {

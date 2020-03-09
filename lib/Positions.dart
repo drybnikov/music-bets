@@ -37,7 +37,7 @@ class _MyPositionsState extends State<MyPositions> {
   final String currentUserId;
   _MyPositionsState({Key key, @required this.currentUserId});
 
-  var dateFormater = new DateFormat("hh:mm:ss");
+  var dateFormater = new DateFormat("MM.dd HH:mm");
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +75,12 @@ class _MyPositionsState extends State<MyPositions> {
     final direction = position.direction == "up" ? '+' : '-';
     final directionColor =
         position.direction == "up" ? Colors.blue : Colors.red;
-    final expired = dateFormater
-        .format(DateTime.fromMicrosecondsSinceEpoch(position.createdAt));
+    final createdAt = dateFormater.format(
+        DateTime.fromMillisecondsSinceEpoch(int.tryParse(position.createdAt)));
+    final expired = dateFormater.formatDurationFrom(
+        calculateExpireTime(position.createdAt), DateTime.now());
+    final pnl = position.startPosition - position.startPosition * position.size;
+
     developer.log(position.toString());
 
     return Padding(
@@ -90,19 +94,36 @@ class _MyPositionsState extends State<MyPositions> {
                 maxLines: 1,
                 style: Styles.mediaRowItemName,
                 overflow: TextOverflow.ellipsis),
-            subtitle: Text(
-                "Expired:$expired #${position.startPosition}, current:${position.startPosition}",
-                style: Styles.mediaRowArtistName),
-            trailing: Row(
+            subtitle: Row(children: <Widget>[
+              Text("$direction${position.size}",
+                  style: Styles.mediaRowItemName.apply(color: directionColor)),
+              Text(" #${position.startPosition}"),
+              Text("  at $createdAt", style: Styles.mediaRowArtistName),
+            ]),
+            trailing: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Text("$direction${position.size}",
+                Text("$expired", style: Styles.mediaRowArtistName),
+                Text("${position.startPosition}",
                     style:
-                        Styles.mediaRowArtistName.apply(color: directionColor))
+                        Styles.mediaRowArtistName.apply(color: Colors.white)),
+                Text("$pnl",
+                    style:
+                        Styles.mediaRowArtistName.apply(color: directionColor)),
               ],
             )),
       ),
     );
+  }
+
+  Duration calculateExpireTime(String createdAt) {
+    final created = int.tryParse(createdAt);
+    final oneDay = Duration(days: 1).inMicroseconds;
+
+    return Duration(
+        milliseconds:
+            (created + oneDay)); // - DateTime.now().millisecondsSinceEpoch
   }
 
   Widget _buildCoverImage(BuildContext context, Position data) {
@@ -122,7 +143,7 @@ class Position {
   final String id;
   final String direction;
   final int size;
-  final int createdAt;
+  final String createdAt;
   final String name;
   final String artistName;
   final String coverImage;
