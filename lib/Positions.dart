@@ -2,8 +2,12 @@ import 'dart:developer' as developer;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'model/MediaItem.dart';
+import 'network/MediaRepository.dart';
 import 'styles.dart';
 
 class Positions extends StatelessWidget {
@@ -33,16 +37,34 @@ class MyPositions extends StatefulWidget {
   }
 }
 
+var dateFormater = new DateFormat("dd.MM HH:mm");
+format(Duration d) => d.toString().substring(0, 5);
+
 class _MyPositionsState extends State<MyPositions> {
   final String currentUserId;
   _MyPositionsState({Key key, @required this.currentUserId});
+  List<MediaItemResponse> chartList = List<MediaItemResponse>();
+  bool updateLoader = false;
 
-  var dateFormater = new DateFormat("MM.dd HH:mm");
+  @override
+  void initState() {
+    super.initState();
+    _updatePositions();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Your Bets')),
+      appBar: AppBar(title: Text('Your Bets'), actions: <Widget>[
+        updateLoader
+            ? Padding(
+                padding: const EdgeInsets.all(10),
+                child: CircularProgressIndicator())
+            : IconButton(
+                icon: Icon(Icons.refresh),
+                onPressed: _updatePositions,
+              )
+      ]),
       body: _buildBody(context),
     );
   }
@@ -53,8 +75,9 @@ class _MyPositionsState extends State<MyPositions> {
           .collection('positions')
           .document(currentUserId)
           .collection(currentUserId)
+          .orderBy('createdAt', descending: true)
           .snapshots(),
-      builder: (cont3ext, snapshot) {
+      builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
         return _buildList(context, snapshot.data.documents);
@@ -77,22 +100,23 @@ class _MyPositionsState extends State<MyPositions> {
         position.direction == "up" ? Colors.blue : Colors.red;
     final createdAt = dateFormater.format(
         DateTime.fromMillisecondsSinceEpoch(int.tryParse(position.createdAt)));
-    final expired = dateFormater.formatDurationFrom(
-        calculateExpireTime(position.createdAt), DateTime.now());
-    final pnl = position.startPosition - position.startPosition * position.size;
+    final expiredDuration = _getExpireTime(position.createdAt);
 
     developer.log(position.toString());
 
     return Padding(
-      key: ValueKey(position.id),
-      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
-      child: Card(
-        elevation: 2.0,
-        child: ListTile(
+        key: ValueKey(position.id),
+        padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
+        child: Card(
+          color: expiredDuration.isNegative ? Colors.black12 : Colors.grey[800],
+          elevation: expiredDuration.isNegative ? 1.0 : 5.0,
+          child: ListTile(
             leading: _buildCoverImage(context, position),
             title: Text("${position.name}",
                 maxLines: 1,
-                style: Styles.mediaRowItemName,
+                style: expiredDuration.isNegative
+                    ? Styles.mediaRowArtistName
+                    : Styles.mediaRowItemName,
                 overflow: TextOverflow.ellipsis),
             subtitle: Row(children: <Widget>[
               Text("$direction${position.size}",
@@ -100,30 +124,72 @@ class _MyPositionsState extends State<MyPositions> {
               Text(" #${position.startPosition}"),
               Text("  at $createdAt", style: Styles.mediaRowArtistName),
             ]),
-            trailing: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Text("$expired", style: Styles.mediaRowArtistName),
-                Text("${position.startPosition}",
-                    style:
-                        Styles.mediaRowArtistName.apply(color: Colors.white)),
-                Text("$pnl",
-                    style:
-                        Styles.mediaRowArtistName.apply(color: directionColor)),
-              ],
-            )),
-      ),
+            trailing: _buildStatistic(position),
+          ),
+        ));
+  }
+
+  Widget _buildStatistic(Position position) {
+    final expiredDuration = _getExpireTime(position.createdAt);
+    final expiredString =
+        expiredDuration.isNegative ? "EXP" : format(expiredDuration);
+    final currentPosition = _findCurrentPosition(position);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        Text("$expiredString", style: Styles.mediaRowArtistName),
+        _buildCurrentPosition(currentPosition),
+        _buildPNL(position, currentPosition),
+      ],
     );
   }
 
-  Duration calculateExpireTime(String createdAt) {
+  Duration _getExpireTime(String createdAt) {
     final created = int.tryParse(createdAt);
-    final oneDay = Duration(days: 1).inMicroseconds;
-
+    final oneDay = Duration(days: 1).inMilliseconds;
     return Duration(
-        milliseconds:
-            (created + oneDay)); // - DateTime.now().millisecondsSinceEpoch
+        milliseconds: created + oneDay - DateTime.now().millisecondsSinceEpoch);
+  }
+
+  int _findCurrentPosition(Position position) {
+    final currentPosition =
+        chartList.indexWhere((item) => item.id == position.id);
+
+    return currentPosition > 0 ? chartList[currentPosition].position : null;
+  }
+
+  Widget _buildCurrentPosition(int currentPosition) {
+    return Text(currentPosition != null ? currentPosition.toString() : "-",
+        style: Styles.mediaRowArtistName.apply(color: Colors.white));
+  }
+
+  Widget _buildPNL(Position position, int currentIndex) {
+    final pnl = _calculatePnl(position, currentIndex);
+    final pnlColor = pnl == null || pnl > 0
+        ? Colors.blue
+        : pnl < 0.0 ? Colors.red : Colors.green;
+
+    _updateReferenceData(position, currentIndex, pnl);
+
+    return Text(pnl == null ? "NAN" : pnl.toString(),
+        style: Styles.mediaRowArtistName.apply(color: pnlColor));
+  }
+
+  int _calculatePnl(Position position, int currentPosition) {
+    if (currentPosition != null) {
+      return (position.startPosition - currentPosition) * position.size;
+    } else {
+      return null;
+    }
+  }
+
+  void _updateReferenceData(Position position, int currentIndex, pnl) async {
+    if (pnl != null) {
+      position.reference
+          .updateData({'pnl': pnl, 'currentPosition': currentIndex});
+    }
   }
 
   Widget _buildCoverImage(BuildContext context, Position data) {
@@ -135,8 +201,21 @@ class _MyPositionsState extends State<MyPositions> {
       height: 72,
     );
   }
+
+  Future<Null> _updatePositions() async {
+    setState(() {
+      updateLoader = true;
+    });
+    Fluttertoast.showToast(msg: "Reload data...");
+
+    fetchChartList().then(
+        (value) => setState(() {
+              updateLoader = false;
+              chartList = value;
+            }),
+        onError: (e) => e.printStackTrace());
+  }
 }
-//record.reference.updateData({'votes': FieldValue.increment(1)}),
 
 class Position {
   final String userid;
