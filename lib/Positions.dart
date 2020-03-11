@@ -55,17 +55,50 @@ class _MyPositionsState extends State<MyPositions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Your Bets'), actions: <Widget>[
-        updateLoader
-            ? Padding(
-                padding: const EdgeInsets.all(10),
-                child: CircularProgressIndicator())
-            : IconButton(
-                icon: Icon(Icons.refresh),
-                onPressed: _updatePositions,
-              )
-      ]),
-      body: _buildBody(context),
+        appBar: AppBar(title: Text('Your Bets'), actions: <Widget>[
+          updateLoader
+              ? Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: CircularProgressIndicator())
+              : IconButton(
+                  icon: Icon(Icons.refresh),
+                  onPressed: _updatePositions,
+                )
+        ]),
+        body: _buildBody(context),
+        bottomNavigationBar: _buildBottomNavigation(context));
+  }
+
+  Widget _buildBottomNavigation(BuildContext context) {
+    return StreamBuilder<DocumentSnapshot>(
+      stream: Firestore.instance
+          .collection('users')
+          .document(currentUserId)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+
+        return _buildBalanceBar(context, snapshot.data);
+      },
+    );
+  }
+
+  Widget _buildBalanceBar(BuildContext context, DocumentSnapshot snapshot) {
+    developer.log("snapshot for user:$currentUserId ${snapshot.data}");
+    final user = User.fromSnapshot(snapshot);
+
+    return Stack(
+      alignment: AlignmentDirectional.centerStart,
+      children: [
+        Container(height: 24.0, color: Colors.black45),
+        Row(children: [
+          Text('Balance: ${user.balance} b'),
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+          ),
+          Text('PNL: ${user.pnl} b')
+        ])
+      ],
     );
   }
 
@@ -250,4 +283,23 @@ class Position {
 
   @override
   String toString() => "Position<$name:$direction>";
+}
+
+class User {
+  final String id;
+  final double balance;
+  final double pnl;
+  final DocumentReference reference;
+
+  User.fromMap(Map<String, dynamic> map, {this.reference})
+      : assert(map['id'] != null),
+        id = map['id'],
+        balance = map['balance'],
+        pnl = map['pnl'];
+
+  User.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data, reference: snapshot.reference);
+
+  @override
+  String toString() => "User<$id:$balance:$pnl>";
 }
