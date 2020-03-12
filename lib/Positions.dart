@@ -7,7 +7,10 @@ import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'model/MediaItem.dart';
+import 'model/Balance.dart';
 import 'network/MediaRepository.dart';
+import 'network/UserRepository.dart';
+import 'BalanceBar.dart';
 import 'styles.dart';
 
 class Positions extends StatelessWidget {
@@ -45,6 +48,10 @@ class _MyPositionsState extends State<MyPositions> {
   _MyPositionsState({Key key, @required this.currentUserId});
   List<MediaItemResponse> chartList = List<MediaItemResponse>();
   bool updateLoader = false;
+  final balance = Balance();
+  num currentPnl = 0.0;
+  num currentProfit = 0.0;
+  User currentUser;
 
   @override
   void initState() {
@@ -66,39 +73,18 @@ class _MyPositionsState extends State<MyPositions> {
                 )
         ]),
         body: _buildBody(context),
-        bottomNavigationBar: _buildBottomNavigation(context));
+        bottomNavigationBar: _buildBottomNavigation(context, balance));
   }
 
-  Widget _buildBottomNavigation(BuildContext context) {
+  Widget _buildBottomNavigation(BuildContext context, balance) {
     return StreamBuilder<DocumentSnapshot>(
-      stream: Firestore.instance
-          .collection('users')
-          .document(currentUserId)
-          .snapshots(),
+      stream: userSnapshot(currentUserId),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-
-        return _buildBalanceBar(context, snapshot.data);
+        currentUser = User.fromSnapshot(snapshot.data);
+        return BalanceBar(currentUser: currentUser, profit: currentProfit);
+        //return _buildBalanceBar(context, snapshot.data);
       },
-    );
-  }
-
-  Widget _buildBalanceBar(BuildContext context, DocumentSnapshot snapshot) {
-    developer.log("snapshot for user:$currentUserId ${snapshot.data}");
-    final user = User.fromSnapshot(snapshot);
-
-    return Stack(
-      alignment: AlignmentDirectional.centerStart,
-      children: [
-        Container(height: 24.0, color: Colors.black45),
-        Row(children: [
-          Text('Balance: ${user.balance} b'),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-          ),
-          Text('PNL: ${user.pnl} b')
-        ])
-      ],
     );
   }
 
@@ -119,7 +105,10 @@ class _MyPositionsState extends State<MyPositions> {
   }
 
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
-    developer.log("snapshot for user:$currentUserId ${snapshot.toString()}");
+    developer
+        .log("_buildList snapshot for user:$currentUserId ${snapshot.length}");
+    currentPnl = 0.0;
+    currentProfit = 0;
     return ListView(
       padding: const EdgeInsets.only(top: 16.0),
       children: snapshot.map((data) => _buildListItem(context, data)).toList(),
@@ -174,7 +163,7 @@ class _MyPositionsState extends State<MyPositions> {
       children: <Widget>[
         Text("$expiredString", style: Styles.mediaRowArtistName),
         _buildCurrentPosition(currentPosition),
-        _buildPNL(position, currentPosition),
+        _buildPNL(position, currentPosition, expiredDuration.isNegative),
       ],
     );
   }
@@ -198,30 +187,42 @@ class _MyPositionsState extends State<MyPositions> {
         style: Styles.mediaRowArtistName.apply(color: Colors.white));
   }
 
-  Widget _buildPNL(Position position, int currentIndex) {
+  Widget _buildPNL(Position position, int currentIndex, bool isExpired) {
     final pnl = _calculatePnl(position, currentIndex);
     final pnlColor = pnl == null || pnl > 0
         ? Colors.blue
         : pnl < 0.0 ? Colors.red : Colors.green;
 
-    _updateReferenceData(position, currentIndex, pnl);
+    _updateReferenceData(position, currentIndex, pnl, isExpired);
 
-    return Text(pnl == null ? "NAN" : pnl.toString(),
+    return Text(pnl == null ? "NAN" : "${pnl}b",
         style: Styles.mediaRowArtistName.apply(color: pnlColor));
   }
 
   int _calculatePnl(Position position, int currentPosition) {
     if (currentPosition != null) {
-      return (position.startPosition - currentPosition) * position.size;
+      final resultPosition = position.direction == "up"
+          ? position.startPosition - currentPosition
+          : currentPosition - position.startPosition;
+      return resultPosition * position.size;
     } else {
       return null;
     }
   }
 
-  void _updateReferenceData(Position position, int currentIndex, pnl) async {
-    if (pnl != null) {
+  void _updateReferenceData(position, currentIndex, pnl, bool isExpired) async {
+    if (pnl != null && !isExpired) {
+      currentPnl += pnl != null ? pnl : 0;
       position.reference
           .updateData({'pnl': pnl, 'currentPosition': currentIndex});
+    }
+    developer.log(
+        "_updateReferenceData pnl:$pnl,isExpired:$isExpired,currentPnl:$currentPnl");
+    if (currentUser != null) {
+      if (isExpired) currentProfit += position.pnl == null ? 0 : position.pnl;
+
+      currentUser.reference
+          .updateData({'pnl': currentPnl, 'profit': currentProfit});
     }
   }
 
@@ -261,6 +262,7 @@ class Position {
   final String coverImage;
   final String filePath;
   final int startPosition;
+  final num pnl;
 
   final DocumentReference reference;
 
@@ -276,30 +278,12 @@ class Position {
         artistName = map['artistName'],
         coverImage = map['coverImage'],
         filePath = map['filePath'],
-        startPosition = map['startPosition'];
+        startPosition = map['startPosition'],
+        pnl = map['pnl'];
 
   Position.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   @override
   String toString() => "Position<$name:$direction>";
-}
-
-class User {
-  final String id;
-  final double balance;
-  final double pnl;
-  final DocumentReference reference;
-
-  User.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map['id'] != null),
-        id = map['id'],
-        balance = map['balance'],
-        pnl = map['pnl'];
-
-  User.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
-
-  @override
-  String toString() => "User<$id:$balance:$pnl>";
 }
