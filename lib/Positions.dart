@@ -9,7 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'model/MediaItem.dart';
 import 'model/Balance.dart';
 import 'network/MediaRepository.dart';
-import 'network/UserRepository.dart';
 import 'BalanceBar.dart';
 import 'styles.dart';
 
@@ -46,46 +45,39 @@ format(Duration d) => d.toString().substring(0, 5);
 class _MyPositionsState extends State<MyPositions> {
   final String currentUserId;
   _MyPositionsState({Key key, @required this.currentUserId});
+
   List<MediaItemResponse> chartList = List<MediaItemResponse>();
   bool updateLoader = false;
-  final balance = Balance();
-  num currentPnl = 0.0;
-  num currentProfit = 0.0;
-  User currentUser;
+  final _balance = Balance();
+  //num _currentPnl = 0.0;
+  //num _currentProfit = 0.0;
+  BalanceBar _balanceBar;
 
   @override
   void initState() {
     super.initState();
     _updatePositions();
+    _balanceBar = BalanceBar(currentUserId: currentUserId);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Your Bets'), actions: <Widget>[
-          updateLoader
-              ? Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: CircularProgressIndicator())
-              : IconButton(
-                  icon: Icon(Icons.refresh),
-                  onPressed: _updatePositions,
-                )
-        ]),
+        appBar: AppBar(
+            title: Text('Your Bets'), actions: <Widget>[_buildRefreshAction()]),
         body: _buildBody(context),
-        bottomNavigationBar: _buildBottomNavigation(context, balance));
+        bottomNavigationBar: _balanceBar);
   }
 
-  Widget _buildBottomNavigation(BuildContext context, balance) {
-    return StreamBuilder<DocumentSnapshot>(
-      stream: userSnapshot(currentUserId),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) return LinearProgressIndicator();
-        currentUser = User.fromSnapshot(snapshot.data);
-        return BalanceBar(currentUser: currentUser, profit: currentProfit);
-        //return _buildBalanceBar(context, snapshot.data);
-      },
-    );
+  Widget _buildRefreshAction() {
+    return updateLoader
+        ? Padding(
+            padding: const EdgeInsets.all(10),
+            child: CircularProgressIndicator())
+        : IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: _updatePositions,
+          );
   }
 
   Widget _buildBody(BuildContext context) {
@@ -107,8 +99,9 @@ class _MyPositionsState extends State<MyPositions> {
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
     developer
         .log("_buildList snapshot for user:$currentUserId ${snapshot.length}");
-    currentPnl = 0.0;
-    currentProfit = 0;
+    //_currentPnl = 0.0;
+    //_currentProfit = 0;
+    _balance.clearBalance();
     return ListView(
       padding: const EdgeInsets.only(top: 16.0),
       children: snapshot.map((data) => _buildListItem(context, data)).toList(),
@@ -212,17 +205,19 @@ class _MyPositionsState extends State<MyPositions> {
 
   void _updateReferenceData(position, currentIndex, pnl, bool isExpired) async {
     if (pnl != null && !isExpired) {
-      currentPnl += pnl != null ? pnl : 0;
+      _balance.updatePnl(pnl);
       position.reference
           .updateData({'pnl': pnl, 'currentPosition': currentIndex});
     }
     developer.log(
-        "_updateReferenceData pnl:$pnl,isExpired:$isExpired,currentPnl:$currentPnl");
-    if (currentUser != null) {
-      if (isExpired) currentProfit += position.pnl == null ? 0 : position.pnl;
+        "_updateReferenceData pnl:$pnl,isExpired:$isExpired,currentPnl:$_balance.currentPnl");
+    if (_balanceBar != null) {
+      if (isExpired)
+        _balance.updateBalance(position
+            .pnl); // _currentProfit += position.pnl == null ? 0 : position.pnl;
 
-      currentUser.reference
-          .updateData({'pnl': currentPnl, 'profit': currentProfit});
+      _balanceBar.currentUser.reference
+          .updateData({'pnl': _balance.currentPnl, 'profit': _balance.profit});
     }
   }
 
@@ -230,7 +225,7 @@ class _MyPositionsState extends State<MyPositions> {
     return CachedNetworkImage(
       imageUrl: data.coverImage,
       placeholder: (context, url) => CircularProgressIndicator(),
-      errorWidget: (context, url, error) => Icon(Icons.error),
+      errorWidget: (context, url, error) => Container(),
       width: 72,
       height: 72,
     );
@@ -246,8 +241,11 @@ class _MyPositionsState extends State<MyPositions> {
         (value) => setState(() {
               updateLoader = false;
               chartList = value;
-            }),
-        onError: (e) => e.printStackTrace());
+            }), onError: (e) {
+      Fluttertoast.showToast(msg: "Network Error.");
+      setState(() => updateLoader = false);
+      e.printStackTrace();
+    });
   }
 }
 

@@ -79,7 +79,7 @@ class AudioPlayerDemoState extends State<AudioPlayerDemo> {
                   alignment: AlignmentDirectional.center,
                   children: <Widget>[
                     CircularProgressIndicator(strokeWidth: 2.0),
-                    Text("${buffering}%",
+                    Text("$buffering%",
                         style: TextStyle(fontSize: 8.0),
                         textAlign: TextAlign.center)
                   ],
@@ -128,6 +128,7 @@ class AudioPlayerDemoState extends State<AudioPlayerDemo> {
     _playerPositionController.cancel();
     _playerBufferingSubscription.cancel();
     _playerErrorSubscription.cancel();
+    audioPlayer.stop();
     audioPlayer.release();
     super.dispose();
   }

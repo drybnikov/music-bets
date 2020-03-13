@@ -1,35 +1,34 @@
 import 'dart:developer' as developer;
 
-import 'model/Balance.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'network/UserRepository.dart';
 import 'styles.dart';
 
-/*class BalanceBar extends StatefulWidget {
+class BalanceBar extends StatelessWidget {
   final String currentUserId;
   BalanceBar({Key key, @required this.currentUserId}) : super(key: key);
 
-  @override
-  _BalanceBarState createState() {
-    return _BalanceBarState(currentUserId: currentUserId);
-  }
-}*/
-
-class BalanceBar extends StatelessWidget {
-  final User currentUser;
-  final num profit;
-  BalanceBar({
-    Key key,
-    @required this.currentUser,
-    @required this.profit,
-  });
+  User currentUser;
 
   @override
   Widget build(BuildContext context) {
-    return _buildBalanceBar(context);
+    return _buildBottomNavigation(context);
   }
 
-  Widget _buildBalanceBar(BuildContext context) {
+  Widget _buildBottomNavigation(BuildContext context) {
+    return StreamBuilder<DocumentSnapshot>(
+      stream: userSnapshot(currentUserId),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+
+        return _buildBalanceBar(context, snapshot.data);
+      },
+    );
+  }
+
+  Widget _buildBalanceBar(BuildContext context, DocumentSnapshot snapshot) {
+    currentUser = User.fromSnapshot(snapshot);
     developer.log(
         "_buildBalanceBar snapshot for user:${currentUser.id}, currentProfit:${currentUser.profit}");
     final currentBalance = currentUser.balance +
@@ -38,7 +37,7 @@ class BalanceBar extends StatelessWidget {
     return Stack(
       alignment: AlignmentDirectional.center,
       children: [
-        Container(height: 24.0, color: Colors.black45),
+        Container(height: 24.0, color: Colors.black87),
         Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Text('Deposit: ${currentUser.balance}b'),
           Text('Balance: ${currentBalance}b'),

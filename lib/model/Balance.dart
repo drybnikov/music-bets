@@ -7,12 +7,21 @@ class Balance with ChangeNotifier {
   int get currentPnl => _currentPnl;
 
   void updateBalance(int profit) {
+    if (profit == null) return;
+
     _currentProfit += profit;
     notifyListeners();
   }
 
   void updatePnl(int pnl) {
+    if (pnl == null) return;
+
     _currentPnl += pnl;
     notifyListeners();
+  }
+
+  void clearBalance() {
+    _currentPnl = 0;
+    _currentProfit = 0;
   }
 }

@@ -211,7 +211,12 @@ class _ChartListHome extends State<ChartListHome> {
             height: 72,
           ),
         ),
-        itemSelected ? _buildPlayer(context, data) : Icon(Icons.error)
+        itemSelected
+            ? _buildPlayer(context, data)
+            : Container(
+                width: 24.0,
+                height: 24.0,
+              )
       ]),
     );
   }
