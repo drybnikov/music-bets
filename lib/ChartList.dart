@@ -4,7 +4,9 @@ import 'dart:developer' as developer;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'BalanceBar.dart';
 
+import 'ui/ConfirmationWidget.dart';
 import 'AudioPlayerDemo.dart';
 import 'Positions.dart';
 import 'login.dart';
@@ -126,68 +128,42 @@ class _ChartListHome extends State<ChartListHome> {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                ActionChip(
-                  label: Icon(
-                    Icons.trending_up,
-                    color: Colors.white,
-                    semanticLabel: "hey",
-                  ),
-                  backgroundColor: Colors.lightBlue,
-                  onPressed: () {
-                    handleCreatePosition(context, data, "up");
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                ),
-                ActionChip(
-                  label: Icon(
-                    Icons.trending_down,
-                    color: Colors.black,
-                  ),
-                  backgroundColor: Colors.red,
-                  shadowColor: Colors.white30,
-                  onPressed: () {
-                    handleCreatePosition(context, data, "down");
-                  },
-                ),
+                _buildTradeAction(context, data, true),
+                Padding(padding: const EdgeInsets.only(left: 8.0)),
+                _buildTradeAction(context, data, false)
               ],
             )),
       ),
     );
   }
 
-  Future<Null> handleCreatePosition(
-      BuildContext context, MediaItemResponse data, String direction) async {
-    String positionId = DateTime.now().millisecondsSinceEpoch.toString();
-    Firestore.instance
-        .collection('positions')
-        .document(currentUserId)
-        .collection(currentUserId)
-        .document(positionId)
-        .setData({
-      'userid': currentUserId,
-      'id': data.id,
-      'direction': direction,
-      'size': 10,
-      'createdAt': positionId,
-      'name': data.name,
-      'artistName': data.artistName,
-      'coverImage': data.coverImage,
-      'filePath': data.filePath,
-      'startPosition': data.position
-    }); //.whenComplete(showPositionCreated);
+  Widget _buildTradeAction(
+      BuildContext context, MediaItemResponse mediaItem, bool moveUp) {
+    return ActionChip(
+      label: Icon(
+        moveUp ? Icons.trending_up : Icons.trending_down,
+        color: Colors.white,
+      ),
+      backgroundColor: moveUp ? Colors.lightBlue : Colors.red,
+      shadowColor: Colors.white30,
+      onPressed: () {
+        handleCreatePosition(context, mediaItem, moveUp ? "up" : "down");
+      },
+    );
+  }
 
-    final snackBar = SnackBar(
-        backgroundColor: Colors.white70,
-        content: Text(
-            "Position opened:\nname: ${data.name}\nsize: 10\ndirection: $direction\nreference: #$positionId"),
-        action: SnackBarAction(
-          label: "POSITIONS",
-          textColor: direction == "up" ? Colors.blue : Colors.red,
-          onPressed: _openPositions,
-        ));
-    Scaffold.of(context).showSnackBar(snackBar);
+  void handleCreatePosition(
+      BuildContext context, MediaItemResponse data, String direction) {
+    showBottomSheet(
+        context: context,
+        builder: (context) => Container(
+              height: 220,
+              child: ConfirmationWidget(
+                  createPosition: CreatePosition(
+                      currentUserId: currentUserId,
+                      mediaItem: data,
+                      direction: direction)),
+            ));
   }
 
   Widget _buildCoverImage(BuildContext context, MediaItemResponse data) {

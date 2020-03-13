@@ -123,7 +123,7 @@ class _MyPositionsState extends State<MyPositions> {
                     : Styles.mediaRowItemName,
                 overflow: TextOverflow.ellipsis),
             subtitle: Row(children: <Widget>[
-              Text("${position.direction}${position.size}",
+              Text("${position.directionSign}${position.size}",
                   style: Styles.mediaRowItemName
                       .apply(color: position.directionColor)),
               Text(" #${position.startPosition}"),
@@ -192,7 +192,7 @@ class _MyPositionsState extends State<MyPositions> {
     }
     developer.log(
         "_updateReferenceData pnl:$pnl,isExpired:$isExpired,currentPnl:$_balance.currentPnl");
-    if (_balanceBar != null) {
+    if (_balanceBar != null && _balanceBar.currentUser != null) {
       if (isExpired) _balance.updateBalance(position.pnl);
 
       _balanceBar.currentUser.reference

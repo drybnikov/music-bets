@@ -13,5 +13,11 @@ abstract class Styles {
       fontSize: 12.0,
       color: Colors.grey
   );
+
+  static const TextStyle title = TextStyle(
+    fontSize: 16,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w500,
+  );
 }
 
