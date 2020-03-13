@@ -3,11 +3,12 @@ import 'dart:developer' as developer;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:intl/intl.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'model/MediaItem.dart';
 import 'model/Balance.dart';
+import 'model/Position.dart';
 import 'network/MediaRepository.dart';
 import 'BalanceBar.dart';
 import 'styles.dart';
@@ -39,9 +40,6 @@ class MyPositions extends StatefulWidget {
   }
 }
 
-var dateFormater = new DateFormat("dd.MM HH:mm");
-format(Duration d) => d.toString().substring(0, 5);
-
 class _MyPositionsState extends State<MyPositions> {
   final String currentUserId;
   _MyPositionsState({Key key, @required this.currentUserId});
@@ -49,8 +47,6 @@ class _MyPositionsState extends State<MyPositions> {
   List<MediaItemResponse> chartList = List<MediaItemResponse>();
   bool updateLoader = false;
   final _balance = Balance();
-  //num _currentPnl = 0.0;
-  //num _currentProfit = 0.0;
   BalanceBar _balanceBar;
 
   @override
@@ -99,8 +95,6 @@ class _MyPositionsState extends State<MyPositions> {
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
     developer
         .log("_buildList snapshot for user:$currentUserId ${snapshot.length}");
-    //_currentPnl = 0.0;
-    //_currentProfit = 0;
     _balance.clearBalance();
     return ListView(
       padding: const EdgeInsets.only(top: 16.0),
@@ -110,12 +104,6 @@ class _MyPositionsState extends State<MyPositions> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     final position = Position.fromSnapshot(data);
-    final direction = position.direction == "up" ? '+' : '-';
-    final directionColor =
-        position.direction == "up" ? Colors.blue : Colors.red;
-    final createdAt = dateFormater.format(
-        DateTime.fromMillisecondsSinceEpoch(int.tryParse(position.createdAt)));
-    final expiredDuration = _getExpireTime(position.createdAt);
 
     developer.log(position.toString());
 
@@ -123,21 +111,24 @@ class _MyPositionsState extends State<MyPositions> {
         key: ValueKey(position.id),
         padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
         child: Card(
-          color: expiredDuration.isNegative ? Colors.black12 : Colors.grey[800],
-          elevation: expiredDuration.isNegative ? 1.0 : 5.0,
+          color:
+              position.expired.isNegative ? Colors.black12 : Colors.grey[800],
+          elevation: position.expired.isNegative ? 1.0 : 5.0,
           child: ListTile(
             leading: _buildCoverImage(context, position),
             title: Text("${position.name}",
                 maxLines: 1,
-                style: expiredDuration.isNegative
+                style: position.expired.isNegative
                     ? Styles.mediaRowArtistName
                     : Styles.mediaRowItemName,
                 overflow: TextOverflow.ellipsis),
             subtitle: Row(children: <Widget>[
-              Text("$direction${position.size}",
-                  style: Styles.mediaRowItemName.apply(color: directionColor)),
+              Text("${position.direction}${position.size}",
+                  style: Styles.mediaRowItemName
+                      .apply(color: position.directionColor)),
               Text(" #${position.startPosition}"),
-              Text("  at $createdAt", style: Styles.mediaRowArtistName),
+              Text("  at ${position.created}",
+                  style: Styles.mediaRowArtistName),
             ]),
             trailing: _buildStatistic(position),
           ),
@@ -145,30 +136,20 @@ class _MyPositionsState extends State<MyPositions> {
   }
 
   Widget _buildStatistic(Position position) {
-    final expiredDuration = _getExpireTime(position.createdAt);
-    final expiredString =
-        expiredDuration.isNegative ? "EXP" : format(expiredDuration);
-    final currentPosition = _findCurrentPosition(position);
+    final currentPosition = _findPosition(position);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-        Text("$expiredString", style: Styles.mediaRowArtistName),
+        Text("${position.expiredString}", style: Styles.mediaRowArtistName),
         _buildCurrentPosition(currentPosition),
-        _buildPNL(position, currentPosition, expiredDuration.isNegative),
+        _buildPNL(position, currentPosition, position.expired.isNegative),
       ],
     );
   }
 
-  Duration _getExpireTime(String createdAt) {
-    final created = int.tryParse(createdAt);
-    final oneDay = Duration(days: 1).inMilliseconds;
-    return Duration(
-        milliseconds: created + oneDay - DateTime.now().millisecondsSinceEpoch);
-  }
-
-  int _findCurrentPosition(Position position) {
+  int _findPosition(Position position) {
     final currentPosition =
         chartList.indexWhere((item) => item.id == position.id);
 
@@ -212,9 +193,7 @@ class _MyPositionsState extends State<MyPositions> {
     developer.log(
         "_updateReferenceData pnl:$pnl,isExpired:$isExpired,currentPnl:$_balance.currentPnl");
     if (_balanceBar != null) {
-      if (isExpired)
-        _balance.updateBalance(position
-            .pnl); // _currentProfit += position.pnl == null ? 0 : position.pnl;
+      if (isExpired) _balance.updateBalance(position.pnl);
 
       _balanceBar.currentUser.reference
           .updateData({'pnl': _balance.currentPnl, 'profit': _balance.profit});
@@ -247,41 +226,4 @@ class _MyPositionsState extends State<MyPositions> {
       e.printStackTrace();
     });
   }
-}
-
-class Position {
-  final String userid;
-  final String id;
-  final String direction;
-  final int size;
-  final String createdAt;
-  final String name;
-  final String artistName;
-  final String coverImage;
-  final String filePath;
-  final int startPosition;
-  final num pnl;
-
-  final DocumentReference reference;
-
-  Position.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map['userid'] != null),
-        assert(map['id'] != null),
-        userid = map['userid'],
-        id = map['id'],
-        direction = map['direction'],
-        size = map['size'],
-        createdAt = map['createdAt'],
-        name = map['name'],
-        artistName = map['artistName'],
-        coverImage = map['coverImage'],
-        filePath = map['filePath'],
-        startPosition = map['startPosition'],
-        pnl = map['pnl'];
-
-  Position.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
-
-  @override
-  String toString() => "Position<$name:$direction>";
 }
