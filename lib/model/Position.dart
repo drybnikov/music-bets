@@ -15,6 +15,7 @@ class Position {
   final String coverImage;
   final String filePath;
   final int startPosition;
+  final int currentPosition;
   final num pnl;
 
   final DocumentReference reference;
@@ -32,6 +33,7 @@ class Position {
         coverImage = map['coverImage'],
         filePath = map['filePath'],
         startPosition = map['startPosition'],
+        currentPosition = map['currentPosition'],
         pnl = map['pnl'];
 
   Position.fromSnapshot(DocumentSnapshot snapshot)

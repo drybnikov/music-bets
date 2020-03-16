@@ -3,7 +3,6 @@ import 'dart:developer' as developer;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'BalanceBar.dart';
 
 import 'ui/ConfirmationWidget.dart';
@@ -11,7 +10,9 @@ import 'AudioPlayerDemo.dart';
 import 'Positions.dart';
 import 'login.dart';
 import 'model/MediaItem.dart';
+import 'model/Position.dart';
 import 'network/MediaRepository.dart';
+import 'network/PositionRepository.dart';
 import 'styles.dart';
 
 void main() => runApp(MyApp());
@@ -50,30 +51,34 @@ class _ChartListHome extends State<ChartListHome> {
   final String currentUserId;
   Future<List<MediaItemResponse>> futureChartList;
   String currentItem = "";
+  List<Position> _positionsList = List<Position>();
+  BalanceBar _balanceBar;
 
   @override
   void initState() {
     super.initState();
     futureChartList = fetchChartList();
+    _balanceBar = BalanceBar(currentUserId: currentUserId);
+    _loadPositions();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Weekly Chart'),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.developer_board,
-                color: Colors.cyanAccent,
-              ),
-              onPressed: _openPositions),
-        ],
-      ),
-      body: _buildBody(context),
-    );
+        appBar: AppBar(
+          title: Text('Weekly Chart'),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.developer_board,
+                  color: Colors.cyanAccent,
+                ),
+                onPressed: _openPositions),
+          ],
+        ),
+        body: _buildBody(context),
+        bottomNavigationBar: _balanceBar);
   }
 
   void _openPositions() {
@@ -105,6 +110,7 @@ class _ChartListHome extends State<ChartListHome> {
   }
 
   Widget _buildList(BuildContext context, List<MediaItemResponse> snapshot) {
+    _balanceBar.updateBalance(snapshot, _positionsList);
     return ListView(
       padding: const EdgeInsets.only(top: 0.0),
       children: snapshot.map((data) => _buildListItem(context, data)).toList(),
@@ -112,10 +118,14 @@ class _ChartListHome extends State<ChartListHome> {
   }
 
   Widget _buildListItem(BuildContext context, MediaItemResponse data) {
+    final itemIndex = _positionsList.indexWhere((item) => item.id == data.id);
+    developer.log("_buildListItem itemIndex:$itemIndex, id:${data.id}");
+
     return Padding(
       key: ValueKey(data.id),
       padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
       child: Card(
+        color: itemIndex >= 0 ? Colors.grey[700] : Colors.grey[800],
         elevation: 4.0,
         child: ListTile(
             title: Text("${data.name}",
@@ -199,5 +209,13 @@ class _ChartListHome extends State<ChartListHome> {
 
   Widget _buildPlayer(BuildContext context, MediaItemResponse data) {
     return AudioPlayerDemo(data.filePath);
+  }
+
+  Future<Null> _loadPositions() async {
+    positionsSnapshot(currentUserId).listen((snapshot) {
+      _positionsList = snapshot.documents
+          .map((data) => Position.fromSnapshot(data))
+          .toList();
+    });
   }
 }

@@ -136,15 +136,17 @@ class _MyPositionsState extends State<MyPositions> {
   }
 
   Widget _buildStatistic(Position position) {
-    final currentPosition = _findPosition(position);
+    final bool isExpired = position.expired.isNegative;
+    final currentChartPosition =
+        isExpired ? position.currentPosition : _findPosition(position);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text("${position.expiredString}", style: Styles.mediaRowArtistName),
-        _buildCurrentPosition(currentPosition),
-        _buildPNL(position, currentPosition, position.expired.isNegative),
+        _buildCurrentPosition(currentChartPosition),
+        _buildPNL(position, currentChartPosition, isExpired),
       ],
     );
   }
@@ -162,7 +164,8 @@ class _MyPositionsState extends State<MyPositions> {
   }
 
   Widget _buildPNL(Position position, int currentIndex, bool isExpired) {
-    final pnl = _calculatePnl(position, currentIndex);
+    final pnl =
+        isExpired ? position.pnl : _calculatePnl(position, currentIndex);
     final pnlColor = pnl == null || pnl > 0
         ? Colors.blue
         : pnl < 0.0 ? Colors.red : Colors.green;
