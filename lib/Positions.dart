@@ -36,14 +36,11 @@ class MyPositions extends StatefulWidget {
 
   @override
   _MyPositionsState createState() {
-    return _MyPositionsState(currentUserId: currentUserId);
+    return _MyPositionsState();
   }
 }
 
 class _MyPositionsState extends State<MyPositions> {
-  final String currentUserId;
-  _MyPositionsState({Key key, @required this.currentUserId});
-
   List<MediaItemResponse> chartList = List<MediaItemResponse>();
   bool updateLoader = false;
   final _balance = Balance();
@@ -53,7 +50,7 @@ class _MyPositionsState extends State<MyPositions> {
   void initState() {
     super.initState();
     _updatePositions();
-    _balanceBar = BalanceBar(currentUserId: currentUserId);
+    _balanceBar = BalanceBar(currentUserId: widget.currentUserId);
   }
 
   @override
@@ -80,8 +77,8 @@ class _MyPositionsState extends State<MyPositions> {
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
           .collection('positions')
-          .document(currentUserId)
-          .collection(currentUserId)
+          .document(widget.currentUserId)
+          .collection(widget.currentUserId)
           .orderBy('createdAt', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
@@ -93,8 +90,8 @@ class _MyPositionsState extends State<MyPositions> {
   }
 
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
-    developer
-        .log("_buildList snapshot for user:$currentUserId ${snapshot.length}");
+    developer.log(
+        "_buildList snapshot for user:${widget.currentUserId} ${snapshot.length}");
     _balance.clearBalance();
     return ListView(
       padding: const EdgeInsets.only(top: 16.0),

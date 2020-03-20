@@ -17,17 +17,15 @@ class CreatePosition {
 }
 
 class ConfirmationWidget extends StatefulWidget {
-  final CreatePosition createPosition;
-  ConfirmationWidget({@required this.createPosition});
+  final CreatePosition create;
+  ConfirmationWidget({@required this.create});
 
   @override
   _ConfirmationWidgetState createState() =>
-      _ConfirmationWidgetState(create: createPosition);
+      _ConfirmationWidgetState();
 }
 
 class _ConfirmationWidgetState extends State<ConfirmationWidget> {
-  final CreatePosition create;
-  _ConfirmationWidgetState({@required this.create});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +38,7 @@ class _ConfirmationWidgetState extends State<ConfirmationWidget> {
               Row(children: [Text("Open position:", style: Styles.title)]),
               Row(children: [
                 Text(" name: "),
-                Text("${create.mediaItem.name}", style: Styles.mediaRowItemName)
+                Text("${widget.create.mediaItem.name}", style: Styles.mediaRowItemName)
               ]), //"
               Row(children: [
                 Text(" size: "),
@@ -48,44 +46,41 @@ class _ConfirmationWidgetState extends State<ConfirmationWidget> {
               ]),
               Row(children: [
                 Text(" chart number: "),
-                Text("#${create.mediaItem.position + 1}",
+                Text("#${widget.create.mediaItem.position + 1}",
                     style: Styles.title.apply(color: directionColor))
               ]),
               Row(children: [
                 Text(" dirrection: "),
-                Text("${create.direction}",
+                Text("${widget.create.direction}",
                     style: Styles.title.apply(color: directionColor))
               ]),
-              Row(children: [Text(" reference: ${create.mediaItem.id}")]),
+              Row(children: [Text(" reference: ${widget.create.mediaItem.id}")]),
               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Container(
                     width: 160,
                     height: 48,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [SheetButton(createPosition: create)]))
+                        children: [SheetButton(create: widget.create)]))
               ])
             ]));
   }
 
-  String get directionSign => create.direction == "up" ? '+' : '-';
+  String get directionSign => widget.create.direction == "up" ? '+' : '-';
   Color get directionColor =>
-      create.direction == "up" ? Colors.blue : Colors.red;
+      widget.create.direction == "up" ? Colors.blue : Colors.red;
 }
 
 class SheetButton extends StatefulWidget {
-  final CreatePosition createPosition;
-  SheetButton({@required this.createPosition});
+  final CreatePosition create;
+  SheetButton({@required this.create});
 
-  _SheetButtonState createState() => _SheetButtonState(create: createPosition);
+  _SheetButtonState createState() => _SheetButtonState();
 }
 
 class _SheetButtonState extends State<SheetButton> {
-  final CreatePosition create;
   bool checkingFlight = false;
   bool success = false;
-
-  _SheetButtonState({@required this.create});
 
   @override
   Widget build(BuildContext context) {
@@ -125,20 +120,20 @@ class _SheetButtonState extends State<SheetButton> {
 
     Firestore.instance
         .collection('positions')
-        .document(create.currentUserId)
-        .collection(create.currentUserId)
+        .document(widget.create.currentUserId)
+        .collection(widget.create.currentUserId)
         .document(positionId)
         .setData({
-          'userid': create.currentUserId,
-          'id': create.mediaItem.id,
-          'direction': create.direction,
+          'userid': widget.create.currentUserId,
+          'id': widget.create.mediaItem.id,
+          'direction': widget.create.direction,
           'size': 10,
           'createdAt': positionId,
-          'name': create.mediaItem.name,
-          'artistName': create.mediaItem.artistName,
-          'coverImage': create.mediaItem.coverImage,
-          'filePath': create.mediaItem.filePath,
-          'startPosition': create.mediaItem.position
+          'name': widget.create.mediaItem.name,
+          'artistName': widget.create.mediaItem.artistName,
+          'coverImage': widget.create.mediaItem.coverImage,
+          'filePath': widget.create.mediaItem.filePath,
+          'startPosition': widget.create.mediaItem.position
         })
         .whenComplete(() => print("Complete"))
         .catchError((error) => print(error));

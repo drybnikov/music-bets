@@ -43,14 +43,11 @@ class ChartListHome extends StatefulWidget {
 
   @override
   _ChartListHome createState() {
-    return _ChartListHome(currentUserId: currentUserId);
+    return _ChartListHome();
   }
 }
 
 class _ChartListHome extends State<ChartListHome> {
-  _ChartListHome({Key key, @required this.currentUserId});
-
-  final String currentUserId;
   Future<List<MediaItemResponse>> futureChartList;
   String currentItem = "";
   List<Position> _positionsList = List<Position>();
@@ -60,7 +57,7 @@ class _ChartListHome extends State<ChartListHome> {
   void initState() {
     super.initState();
     futureChartList = fetchChartList();
-    _balanceBar = BalanceBar(currentUserId: currentUserId);
+    _balanceBar = BalanceBar(currentUserId: widget.currentUserId);
     _loadPositions();
   }
 
@@ -98,7 +95,7 @@ class _ChartListHome extends State<ChartListHome> {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-          return MyPositions(currentUserId: currentUserId);
+          return MyPositions(currentUserId: widget.currentUserId);
         },
       ),
     );
@@ -182,8 +179,8 @@ class _ChartListHome extends State<ChartListHome> {
         builder: (context) => Container(
               height: 220,
               child: ConfirmationWidget(
-                  createPosition: CreatePosition(
-                      currentUserId: currentUserId,
+                  create: CreatePosition(
+                      currentUserId: widget.currentUserId,
                       mediaItem: data,
                       direction: direction)),
             ));
@@ -225,7 +222,7 @@ class _ChartListHome extends State<ChartListHome> {
   }
 
   Future<Null> _loadPositions() async {
-    positionsSnapshot(currentUserId).listen((snapshot) {
+    positionsSnapshot(widget.currentUserId).listen((snapshot) {
       _positionsList = snapshot.documents
           .map((data) => Position.fromSnapshot(data))
           .toList();
