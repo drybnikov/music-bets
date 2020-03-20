@@ -15,6 +15,8 @@ import 'network/MediaRepository.dart';
 import 'network/PositionRepository.dart';
 import 'styles.dart';
 
+import 'chipsInput.dart';
+
 void main() => runApp(MyApp());
 
 class ChartList extends StatelessWidget {
@@ -75,10 +77,21 @@ class _ChartListHome extends State<ChartListHome> {
                   color: Colors.cyanAccent,
                 ),
                 onPressed: _openPositions),
+            IconButton(icon: Icon(Icons.input), onPressed: _openChips),
           ],
         ),
         body: _buildBody(context),
         bottomNavigationBar: _balanceBar);
+  }
+
+  void _openChips() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (context) {
+          return ChipsPage();
+        },
+      ),
+    );
   }
 
   void _openPositions() {

@@ -138,7 +138,7 @@ class _MyPositionsState extends State<MyPositions> {
   Widget _buildStatistic(Position position) {
     final bool isExpired = position.expired.isNegative;
     final currentChartPosition =
-        isExpired ? position.currentPosition : _findPosition(position);
+        isExpired ? position.startPosition : _findPosition(position);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
