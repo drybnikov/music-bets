@@ -1,0 +1,970 @@
+[
+    {
+        "id": "52ba71e4-5bc2-11ea-bc08-064f3e9f608e",
+        "name": "QUE SE JODAN TO' Remix",
+        "name_seo": "que-se-jodan-to-remix",
+        "artist": {
+            "id": "84ae8d12-698e-11e7-991a-02fe9cf35e65",
+            "name": "primus85",
+            "artist_name": "\/\/\/FUOCO\/\/\/",
+            "muted": false,
+            "place": null,
+            "country": null,
+            "followers": 5005,
+            "follows": 1043,
+            "liked": 26802,
+            "releases": 156,
+            "favorites": 0,
+            "description": "Loving the music forever. #fuocoprimos #ULTRASOUND",
+            "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_image\/d63b39a9-350e-11ea-99f7-064f3e9f608e.jpeg?cb=20200112084042",
+            "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_cover_image\/e65b24dd-10ef-11e9-94a7-02f4b96e2f6c.jpeg?cb=20190105144335",
+            "favorite_genres": [],
+            "created": "2017-07-15T20:51:02+0200",
+            "location": {
+                "latitude": "45.005969",
+                "longitude": "12.2080923",
+                "location_name": ""
+            },
+            "social_accounts": [],
+            "video_shout_out_count": 0,
+            "external_songs_count": null,
+            "external_videos_count": 0,
+            "crews": [
+                {
+                    "id": 399,
+                    "super_admin_id": "84ae8d12-698e-11e7-991a-02fe9cf35e65",
+                    "max_users": 50,
+                    "name": "ULTRA SOUND",
+                    "description": "Music is life",
+                    "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/1e0b5361-586c-11ea-bc08-064f3e9f608e.jpeg?cb=20200226084637",
+                    "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_cover_image\/f70ea6e7-118f-11e9-94a7-02f4b96e2f6c.jpeg?cb=20190106094923",
+                    "genres": [],
+                    "type": "USER",
+                    "users": 4,
+                    "songs_count": 214,
+                    "follows": 1043,
+                    "followers": 762,
+                    "date_created": "2018-05-05T20:10:04+0200",
+                    "location": {
+                        "latitude": "45.0047054",
+                        "longitude": "12.2205535",
+                        "location_name": ""
+                    },
+                    "user_role": "ROLE_CREW_SUPER_ADMIN",
+                    "date_joined": "2018-05-05T20:10:04+0200",
+                    "new_activity": false
+                },
+                {
+                    "id": 20856,
+                    "super_admin_id": "b414de62-ffd0-11e6-9f28-02fe9cf35e65",
+                    "max_users": 50,
+                    "name": "THE ROYAL SOCIETY",
+                    "description": "THE ROYAL SOCIETY TRS IS A NEWLY FORMED CREW,CREATED AND FOUNDED BY JMAJIK OF THA MAGICIANS AND MAJIKMUZIK!\n\nWE ARE A CREW THAT ARE HIGHLY RECOGNIZED AND SUPPORTED THROUGHOUT THE MMJ LOUDLY COMMUNITY!\nPRODUCING SOME OF THE HOTTEST AND MOST TRENDY MUSIC WITHIN THE MMJ CONSTRUCT!",
+                    "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/f6ee3201-3833-11ea-99f7-064f3e9f608e.jpeg?cb=20200116084402",
+                    "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_cover_image\/92d28937-54d1-11e9-99f7-064f3e9f608e.jpeg?cb=20190402005749",
+                    "genres": [],
+                    "type": "USER",
+                    "users": 4,
+                    "songs_count": 66,
+                    "follows": 444,
+                    "followers": 186,
+                    "date_created": "2019-04-02T00:35:44+0200",
+                    "location": {
+                        "latitude": "29.951065799999",
+                        "longitude": "-90.0715323",
+                        "location_name": "New Orleans, United States"
+                    },
+                    "user_role": "ROLE_CREW_USER",
+                    "date_joined": "2019-05-19T11:00:07+0200",
+                    "new_activity": false
+                },
+                {
+                    "id": 23238,
+                    "super_admin_id": "798f488d-bf60-11e8-93ba-0679f364d8e4",
+                    "max_users": 50,
+                    "name": "EmpireMusicGroup",
+                    "description": "Welcome to the official page of Empire Music Group in the Loudly app.\n\nIn the Empire profile, you can see the work of Empire Music Group members created on the Music Maker Jam platform.",
+                    "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/cefe2136-91c8-11e9-99f7-064f3e9f608e.jpeg?cb=20190618145846",
+                    "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_cover_image\/d84f8a83-8649-11e9-99f7-064f3e9f608e.jpeg?cb=20190603235213",
+                    "genres": [],
+                    "type": "USER",
+                    "users": 20,
+                    "songs_count": 571,
+                    "follows": 91,
+                    "followers": 777,
+                    "date_created": "2019-06-02T22:50:58+0200",
+                    "location": {
+                        "latitude": "44.8862274",
+                        "longitude": "34.139957199999",
+                        "location_name": ""
+                    },
+                    "user_role": "ROLE_CREW_USER",
+                    "date_joined": "2019-11-02T22:34:52+0100",
+                    "new_activity": false
+                }
+            ]
+        },
+        "artist_name": "\/\/\/FUOCO\/\/\/",
+        "duration": 168,
+        "bpm": 120,
+        "likes": 312,
+        "faves": 0,
+        "plays": 768,
+        "reposts": 0,
+        "comments": 239,
+        "description": "#RAP #HOUSE #LATIN #ULTRASOUND #DUBSTED #FUOCO #ZANDUNGA",
+        "tags": null,
+        "source_info": "ST_Acid_House ST_Afro_Tech_02 ST_Ani_Klang_02 ST_BigBeat ST_Brostep ST_Festival_Trap ST_Glitch_It ST_Golden_Icon ST_HipHop_Vol_05 ST_Hustle_Trap ST_JAM_X_Boe_IV ST_Jam_808s_I ST_Jam_808s_II ST_Jam_X_Boe_III ST_Jam_X_DFA ST_Latin_Perc_01 ST_Latin_Perc_02 ST_Moombahton_Vol_2 ST_The_Island ST_Urban_Electro ST_Vocal_Cuts",
+        "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/cover_image\/52b5cdae-5bc2-11ea-bc08-064f3e9f608e.jpeg?cb=20200301144115",
+        "cover_image_aspect_ratio": "242:242",
+        "music_file_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/music_file\/50036f99-5bc2-11ea-bc08-064f3e9f608e.m4a?cb=20200301144111",
+        "music_file_mimetype": "audio\/mp4",
+        "song_genres": [
+            {
+                "id": 2,
+                "name": "House"
+            },
+            {
+                "id": 5,
+                "name": "Hip-Hop & Rap"
+            },
+            {
+                "id": 6,
+                "name": "Lounge"
+            },
+            {
+                "id": 9,
+                "name": "Dubstep"
+            },
+            {
+                "id": 11,
+                "name": "Movie Score"
+            },
+            {
+                "id": 14,
+                "name": "Afrobeat"
+            },
+            {
+                "id": 25,
+                "name": "Latin"
+            },
+            {
+                "id": 29,
+                "name": "Techno"
+            },
+            {
+                "id": 31,
+                "name": "Trap"
+            },
+            {
+                "id": 42,
+                "name": "Electronic"
+            },
+            {
+                "id": 43,
+                "name": "Pop"
+            }
+        ],
+        "song_release": "2020-03-01T14:41:15+0100",
+        "mix_packs": [],
+        "linked_crews": [
+            {
+                "id": 399,
+                "name": "ULTRA SOUND",
+                "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/1e0b5361-586c-11ea-bc08-064f3e9f608e.jpeg?cb=20200226084637"
+            }
+        ]
+    },
+    {
+        "id": "04a146b0-5ba9-11ea-bc08-064f3e9f608e",
+        "name": "Unplugged Hiphop \u2764\ufe0f",
+        "name_seo": "unplugged-hiphop-",
+        "artist": {
+            "id": "26c495bd-1322-11e8-babf-02fe9cf35e65",
+            "name": "her25",
+            "artist_name": "Kash",
+            "muted": false,
+            "place": null,
+            "country": null,
+            "followers": 778,
+            "follows": 0,
+            "liked": 3317,
+            "releases": 50,
+            "favorites": 0,
+            "description": null,
+            "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_image\/f2635c95-5ef3-11ea-bc08-064f3e9f608e.jpeg?cb=20200305161402",
+            "cover_image_path": "https:\/\/api.jam-community.com\/img\/user_bgr_default.png",
+            "favorite_genres": [],
+            "created": "2018-02-16T15:03:22+0100",
+            "location": null,
+            "social_accounts": [],
+            "video_shout_out_count": 0,
+            "external_songs_count": null,
+            "external_videos_count": 0,
+            "crews": []
+        },
+        "artist_name": "Kash",
+        "duration": 311,
+        "bpm": 80,
+        "likes": 209,
+        "faves": 0,
+        "plays": 816,
+        "reposts": 0,
+        "comments": 391,
+        "description": null,
+        "tags": null,
+        "source_info": "ST_Attention ST_Bass_Music ST_Exotic_Strings ST_Headbanger_Trap ST_Jam_X_Danny_Byrd ST_Latin_Trap ST_Temptation ST_Typebeat_6lue ST_Wolves",
+        "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/cover_image\/049bc432-5ba9-11ea-bc08-064f3e9f608e.jpeg?cb=20200301114007",
+        "cover_image_aspect_ratio": "700:700",
+        "music_file_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/music_file\/0021ee1b-5ba9-11ea-bc08-064f3e9f608e.m4a?cb=20200301113959",
+        "music_file_mimetype": "audio\/mp4",
+        "song_genres": [
+            {
+                "id": 3,
+                "name": "Drum & Bass"
+            },
+            {
+                "id": 5,
+                "name": "Hip-Hop & Rap"
+            },
+            {
+                "id": 12,
+                "name": "World"
+            },
+            {
+                "id": 13,
+                "name": "Metal"
+            },
+            {
+                "id": 20,
+                "name": "EDM"
+            },
+            {
+                "id": 22,
+                "name": "Grime"
+            },
+            {
+                "id": 31,
+                "name": "Trap"
+            }
+        ],
+        "song_release": "2020-03-01T11:40:07+0100",
+        "mix_packs": [],
+        "linked_crews": []
+    },
+    {
+        "id": "5c19d203-5b04-11ea-bc08-064f3e9f608e",
+        "name": "\u2623\ufe0fEDM\u2620\ufe0fEMPERY\u2623\ufe0f~NIGHT[melodic house]",
+        "name_seo": "edmemperynightmelodic-house",
+        "artist": {
+            "id": "c6de4abb-4b8f-11e6-b28a-02fe9cf35e65",
+            "name": "mistery2",
+            "artist_name": "Mi$t\u20acr\u00a5",
+            "muted": false,
+            "place": null,
+            "country": null,
+            "followers": 1705,
+            "follows": 71,
+            "liked": 6916,
+            "releases": 112,
+            "favorites": 0,
+            "description": "\u0442\u043e\u043b\u044c\u043a\u043e \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u0430\u044f \u043c\u0443\u0437\u044b\u043a\u0430\n\u2622\ufe0fTRANCE~TECHNO~HOUSE~EDM\u2622\ufe0f  NASHI MUSICAL GROUP",
+            "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_image\/460758ba-9c3d-11e9-99f7-064f3e9f608e.jpeg?cb=20190701221739",
+            "cover_image_path": "https:\/\/api.jam-community.com\/img\/user_bgr_default.png",
+            "favorite_genres": [],
+            "created": "2016-07-16T21:59:16+0200",
+            "location": null,
+            "social_accounts": [],
+            "video_shout_out_count": 0,
+            "external_songs_count": null,
+            "external_videos_count": 0,
+            "crews": [
+                {
+                    "id": 4547,
+                    "super_admin_id": "23e730a0-b8d7-11e6-9f28-02fe9cf35e65",
+                    "max_users": 50,
+                    "name": "NASHI mmj",
+                    "description": "",
+                    "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/9502353b-850e-11e8-93ba-0679f364d8e4.jpeg?cb=20180711153031",
+                    "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_cover_image\/7abe33d6-89dc-11e8-93ba-0679f364d8e4.jpeg?cb=20180717182746",
+                    "genres": [],
+                    "type": "USER",
+                    "users": 13,
+                    "songs_count": 37,
+                    "follows": 352,
+                    "followers": 45,
+                    "date_created": "2018-07-11T15:30:31+0200",
+                    "location": null,
+                    "user_role": "ROLE_CREW_USER",
+                    "date_joined": "2020-03-02T16:05:30+0100",
+                    "new_activity": false
+                },
+                {
+                    "id": 30115,
+                    "super_admin_id": "026126e3-16aa-11ea-99f7-064f3e9f608e",
+                    "max_users": 50,
+                    "name": "no sleep club",
+                    "description": "new world musical intergalactiqualiance crew's for dance with the life",
+                    "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/27a973cc-2127-11ea-99f7-064f3e9f608e.jpeg?cb=20191218004424",
+                    "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_cover_image\/fc858f4d-2132-11ea-99f7-064f3e9f608e.jpeg?cb=20191218020905",
+                    "genres": [],
+                    "type": "USER",
+                    "users": 49,
+                    "songs_count": 444,
+                    "follows": 258,
+                    "followers": 301,
+                    "date_created": "2019-12-18T00:44:24+0100",
+                    "location": {
+                        "latitude": "42.6886591",
+                        "longitude": "2.8948331999999",
+                        "location_name": "Perpignan, France"
+                    },
+                    "user_role": "ROLE_CREW_USER",
+                    "date_joined": "2020-03-02T16:09:13+0100",
+                    "new_activity": false
+                },
+                {
+                    "id": 30194,
+                    "super_admin_id": "762bdafe-39a2-11e9-99f7-064f3e9f608e",
+                    "max_users": 50,
+                    "name": "friends of interest",
+                    "description": "",
+                    "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/2454acc2-2305-11ea-99f7-064f3e9f608e.jpeg?cb=20191220094557",
+                    "cover_image_path": "https:\/\/api.jam-community.com\/img\/crew_bgr_default.png",
+                    "genres": [],
+                    "type": "USER",
+                    "users": 8,
+                    "songs_count": 9,
+                    "follows": 431,
+                    "followers": 51,
+                    "date_created": "2019-12-20T09:45:58+0100",
+                    "location": {
+                        "latitude": "55.755826",
+                        "longitude": "37.6172999",
+                        "location_name": "Moscow, Russia"
+                    },
+                    "user_role": "ROLE_CREW_USER",
+                    "date_joined": "2020-03-02T17:12:46+0100",
+                    "new_activity": false
+                }
+            ]
+        },
+        "artist_name": "Mi$t\u20acr\u00a5",
+        "duration": 149,
+        "bpm": 0,
+        "likes": 198,
+        "faves": 0,
+        "plays": 632,
+        "reposts": 0,
+        "comments": 398,
+        "description": "#HOUSE #ELECTRO #EDM #MELODIC #RAWTALENT #NASHI #BADASS \u261d\ufe0fHEADPHONES\u261d\ufe0f!!!\u041e\u0411\u042f\u0417\u0410\u0422\u0415\u041b\u042c\u041d\u041e \u041d\u0410\u0414\u0415\u0412\u0410\u0419\u0422\u0415 \u041d\u0410\u0423\u0428\u041d\u0418\u041a\u0418!!!",
+        "tags": null,
+        "source_info": null,
+        "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/cover_image\/5c0d2aa7-5b04-11ea-bc08-064f3e9f608e.jpeg?cb=20200229160127",
+        "cover_image_aspect_ratio": "700:700",
+        "music_file_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/music_file\/59c22be4-5b04-11ea-bc08-064f3e9f608e.m4a?cb=20200229160123",
+        "music_file_mimetype": "audio\/mp4",
+        "song_genres": [],
+        "song_release": "2020-02-29T16:01:27+0100",
+        "mix_packs": [],
+        "linked_crews": []
+    },
+    {
+        "id": "ba4b2300-5a21-11ea-bc08-064f3e9f608e",
+        "name": "R E B E L S",
+        "name_seo": "r-e-b-e-l-s",
+        "artist": {
+            "id": "87d2ed39-f73a-11e8-ac46-0679f364d8e4",
+            "name": "sina908",
+            "artist_name": "::::\u2698TASHA",
+            "muted": false,
+            "place": null,
+            "country": null,
+            "followers": 1408,
+            "follows": 135,
+            "liked": 4022,
+            "releases": 18,
+            "favorites": 0,
+            "description": "OFFLINE ....busy.....out for longer time ...\n\n\n\nfeatured on mmj Channel\/LOUDER TUNES\/YouTube \n\"TECHNO TRIP \" by TASHA",
+            "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_image\/b4e7c0f5-5e9c-11ea-bc08-064f3e9f608e.jpeg?cb=20200305054933",
+            "cover_image_path": "https:\/\/api.jam-community.com\/img\/user_bgr_default.png",
+            "favorite_genres": [],
+            "created": "2018-12-03T21:32:19+0100",
+            "location": null,
+            "social_accounts": [],
+            "video_shout_out_count": 0,
+            "external_songs_count": null,
+            "external_videos_count": 0,
+            "crews": []
+        },
+        "artist_name": "::::::TASHA",
+        "duration": 317,
+        "bpm": 132,
+        "likes": 192,
+        "faves": 0,
+        "plays": 421,
+        "reposts": 0,
+        "comments": 246,
+        "description": null,
+        "tags": null,
+        "source_info": "ST_Barrel_Of_Gun ST_Break_Beats ST_Dark_Light ST_Deep_Techno ST_Disco_Control ST_HardStyle ST_Hook_Lines ST_Jam_Spotlight_Fatboi ST_Jam_Spotlight_Siimba ST_Love_The_Music ST_Raw_Techno ST_Sultans_Court ST_Synth_DNA ST_Techno_Vol_03",
+        "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/cover_image\/16ffa1b4-5a23-11ea-bc08-064f3e9f608e.jpeg?cb=20200228130854",
+        "cover_image_aspect_ratio": "500:500",
+        "music_file_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/music_file\/b3d7c671-5a21-11ea-bc08-064f3e9f608e.m4a?cb=20200228125858",
+        "music_file_mimetype": "audio\/mp4",
+        "song_genres": [
+            {
+                "id": 3,
+                "name": "Drum & Bass"
+            },
+            {
+                "id": 5,
+                "name": "Hip-Hop & Rap"
+            },
+            {
+                "id": 7,
+                "name": "Soul\/R&B"
+            },
+            {
+                "id": 20,
+                "name": "EDM"
+            },
+            {
+                "id": 29,
+                "name": "Techno"
+            },
+            {
+                "id": 42,
+                "name": "Electronic"
+            }
+        ],
+        "song_release": "2020-02-28T12:59:09+0100",
+        "mix_packs": [],
+        "linked_crews": []
+    },
+    {
+        "id": "d85e60e0-5ae7-11ea-bc08-064f3e9f608e",
+        "name": "BeauTifuL DisasTer \u2764\ufe0f",
+        "name_seo": "beautiful-disaster--8",
+        "artist": {
+            "id": "26c495bd-1322-11e8-babf-02fe9cf35e65",
+            "name": "her25",
+            "artist_name": "Kash",
+            "muted": false,
+            "place": null,
+            "country": null,
+            "followers": 778,
+            "follows": 0,
+            "liked": 3317,
+            "releases": 50,
+            "favorites": 0,
+            "description": null,
+            "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_image\/f2635c95-5ef3-11ea-bc08-064f3e9f608e.jpeg?cb=20200305161402",
+            "cover_image_path": "https:\/\/api.jam-community.com\/img\/user_bgr_default.png",
+            "favorite_genres": [],
+            "created": "2018-02-16T15:03:22+0100",
+            "location": null,
+            "social_accounts": [],
+            "video_shout_out_count": 0,
+            "external_songs_count": null,
+            "external_videos_count": 0,
+            "crews": []
+        },
+        "artist_name": "Kash",
+        "duration": 268,
+        "bpm": 130,
+        "likes": 187,
+        "faves": 0,
+        "plays": 605,
+        "reposts": 0,
+        "comments": 378,
+        "description": "DELCATIED TASHA she is very talented jammer \u2764\ufe0f",
+        "tags": null,
+        "source_info": "ST_Aero_Jay_Beautiful_Disaster ST_Favela_Beats ST_Grime_Trap_02 ST_Jam_Spotlight_Aerojay",
+        "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/cover_image\/d859a78c-5ae7-11ea-bc08-064f3e9f608e.jpeg?cb=20200229123720",
+        "cover_image_aspect_ratio": "700:700",
+        "music_file_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/music_file\/d1e9d950-5ae7-11ea-bc08-064f3e9f608e.m4a?cb=20200229123709",
+        "music_file_mimetype": "audio\/mp4",
+        "song_genres": [
+            {
+                "id": 12,
+                "name": "World"
+            },
+            {
+                "id": 20,
+                "name": "EDM"
+            },
+            {
+                "id": 31,
+                "name": "Trap"
+            },
+            {
+                "id": 42,
+                "name": "Electronic"
+            }
+        ],
+        "song_release": "2020-02-29T12:37:20+0100",
+        "mix_packs": [],
+        "linked_crews": []
+    },
+    {
+        "id": "fd75852f-5d93-11ea-bc08-064f3e9f608e",
+        "name": "C O L O R \u2022 S \u2b50 SBY SERIES",
+        "name_seo": "c-o-l-o-r--s--sby-series",
+        "artist": {
+            "id": "592b81cb-2691-11e7-93db-02fe9cf35e65",
+            "name": "sbymusic",
+            "artist_name": "SBY \u2665\ufe0f MUSIC",
+            "muted": false,
+            "place": null,
+            "country": null,
+            "followers": 3239,
+            "follows": 262,
+            "liked": 2856,
+            "releases": 450,
+            "favorites": 0,
+            "description": "SBY \u00ae Valencia \u2665\ufe0f Espa\u00f1a \/  Spain \nSUNBLUEYES \u00a9\u00ae 2011-20",
+            "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_image\/3ac27443-3bb2-11ea-99f7-064f3e9f608e.jpeg?cb=20200120192526",
+            "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_cover_image\/407a8856-3490-11ea-99f7-064f3e9f608e.jpeg?cb=20200111173434",
+            "favorite_genres": [],
+            "created": "2017-04-21T14:52:16+0200",
+            "location": {
+                "latitude": "39.4699075",
+                "longitude": "-0.3762881",
+                "location_name": "Val\u00e8ncia, Spain"
+            },
+            "social_accounts": [
+                {
+                    "id": 1640,
+                    "service": "soundcloud",
+                    "username": "djsebra",
+                    "followers": 38,
+                    "profile_url": "https:\/\/soundcloud.com\/djsebra",
+                    "created_at": "2019-11-10T09:40:04+0100"
+                }
+            ],
+            "video_shout_out_count": 0,
+            "external_songs_count": null,
+            "external_videos_count": 3,
+            "crews": [
+                {
+                    "id": 2186,
+                    "super_admin_id": "592b81cb-2691-11e7-93db-02fe9cf35e65",
+                    "max_users": 50,
+                    "name": "SBY MUSIC",
+                    "description": "SBY MUSIC GROUP\n#MAFIASOUND MMJ",
+                    "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/6cce580b-1790-11e9-94a7-02f4b96e2f6c.jpeg?cb=20190114010747",
+                    "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_cover_image\/6ce30847-1790-11e9-94a7-02f4b96e2f6c.jpeg?cb=20190114010748",
+                    "genres": [],
+                    "type": "USER",
+                    "users": 17,
+                    "songs_count": 1117,
+                    "follows": 262,
+                    "followers": 7118,
+                    "date_created": "2018-06-30T09:35:24+0200",
+                    "location": {
+                        "latitude": "38.9067339",
+                        "longitude": "1.4205983",
+                        "location_name": "Ibiza, Spain"
+                    },
+                    "user_role": "ROLE_CREW_SUPER_ADMIN",
+                    "date_joined": "2018-06-30T09:35:24+0200",
+                    "new_activity": false
+                }
+            ]
+        },
+        "artist_name": "SBY \u2665\ufe0f MUSIC",
+        "duration": 165,
+        "bpm": 195,
+        "likes": 159,
+        "faves": 0,
+        "plays": 351,
+        "reposts": 0,
+        "comments": 118,
+        "description": "#SBY  \u2665\ufe0f\u2b50 FAM ;)  #MAFIASOUND #SUNBLUEYES",
+        "tags": null,
+        "source_info": "ST_70s_Funk_Vol_02 ST_Jam_Spotlight_Mallory ST_Jam_X_Fred_V ST_Temptation",
+        "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/cover_image\/fd6efe42-5d93-11ea-bc08-064f3e9f608e.jpeg?cb=20200303221438",
+        "cover_image_aspect_ratio": "200:200",
+        "music_file_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/music_file\/fadf5509-5d93-11ea-bc08-064f3e9f608e.m4a?cb=20200303221433",
+        "music_file_mimetype": "audio\/mp4",
+        "song_genres": [
+            {
+                "id": 3,
+                "name": "Drum & Bass"
+            },
+            {
+                "id": 20,
+                "name": "EDM"
+            },
+            {
+                "id": 35,
+                "name": "Funk"
+            }
+        ],
+        "song_release": "2020-03-03T22:14:38+0100",
+        "mix_packs": [],
+        "linked_crews": [
+            {
+                "id": 2186,
+                "name": "SBY MUSIC",
+                "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/6cce580b-1790-11e9-94a7-02f4b96e2f6c.jpeg?cb=20190114010747"
+            }
+        ]
+    },
+    {
+        "id": "4e7d4c0c-5a0f-11ea-bc08-064f3e9f608e",
+        "name": "Angles SensaTion Life\u2764\ufe0f",
+        "name_seo": "angles-sensation-life",
+        "artist": {
+            "id": "26c495bd-1322-11e8-babf-02fe9cf35e65",
+            "name": "her25",
+            "artist_name": "Kash",
+            "muted": false,
+            "place": null,
+            "country": null,
+            "followers": 778,
+            "follows": 0,
+            "liked": 3317,
+            "releases": 50,
+            "favorites": 0,
+            "description": null,
+            "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_image\/f2635c95-5ef3-11ea-bc08-064f3e9f608e.jpeg?cb=20200305161402",
+            "cover_image_path": "https:\/\/api.jam-community.com\/img\/user_bgr_default.png",
+            "favorite_genres": [],
+            "created": "2018-02-16T15:03:22+0100",
+            "location": null,
+            "social_accounts": [],
+            "video_shout_out_count": 0,
+            "external_songs_count": null,
+            "external_videos_count": 0,
+            "crews": []
+        },
+        "artist_name": "Kash",
+        "duration": 215,
+        "bpm": 120,
+        "likes": 156,
+        "faves": 0,
+        "plays": 568,
+        "reposts": 0,
+        "comments": 315,
+        "description": null,
+        "tags": null,
+        "source_info": "ST_Bass_Music ST_EDM_Voc_Chops_02 ST_Headbanger_Trap ST_Instrumental_Metal ST_Metal_Inferno ST_Sultans_Court ST_Temptation ST_Typebeat_Billie_Eilish ST_Typebeat_Juice ST_Wolves",
+        "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/cover_image\/4e72642a-5a0f-11ea-bc08-064f3e9f608e.jpeg?cb=20200228104717",
+        "cover_image_aspect_ratio": "700:700",
+        "music_file_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/music_file\/4b86ee9f-5a0f-11ea-bc08-064f3e9f608e.m4a?cb=20200228104712",
+        "music_file_mimetype": "audio\/mp4",
+        "song_genres": [
+            {
+                "id": 5,
+                "name": "Hip-Hop & Rap"
+            },
+            {
+                "id": 13,
+                "name": "Metal"
+            },
+            {
+                "id": 17,
+                "name": "Beats"
+            },
+            {
+                "id": 20,
+                "name": "EDM"
+            },
+            {
+                "id": 22,
+                "name": "Grime"
+            },
+            {
+                "id": 31,
+                "name": "Trap"
+            },
+            {
+                "id": 42,
+                "name": "Electronic"
+            }
+        ],
+        "song_release": "2020-02-28T10:47:17+0100",
+        "mix_packs": [],
+        "linked_crews": []
+    },
+    {
+        "id": "93e1740e-5bd5-11ea-bc08-064f3e9f608e",
+        "name": "\u1d00\u0299s\u1d0f\u0280\u1d18\u1d1b\u026a\u1d0f\u0274",
+        "name_seo": "s-936",
+        "artist": {
+            "id": "398710df-4236-11e9-99f7-064f3e9f608e",
+            "name": "mabloo3",
+            "artist_name": "\u1320\u13af\u0181\u13d7\u0398\u00d8 \u4e61",
+            "muted": false,
+            "place": null,
+            "country": null,
+            "followers": 1278,
+            "follows": 81,
+            "liked": 3529,
+            "releases": 28,
+            "favorites": 0,
+            "description": "\u2b07\ufe0f    \u2b07\ufe0f   \u2b07\ufe0f\n \n\n\n\n\n\n\n\n\n\n \n \u25aa\ufe0f\u25ab\ufe0f\u25fe\u25fd\u25fc\ufe0f\u25fb\ufe0f\u2b1b\u25fb\ufe0f\u25fc\ufe0f\u25fd\u25fe\u25ab\ufe0f\u25aa\ufe0f     \n \nmy name Nikita \u263a\ufe0f.                                         \u2b1b                                  \n                                                                                      \u2b1c\n| I from Russia |.                                                 \u2b1b\n                                                                                      \u2b1b\n\u042f \u041d\u0438\u043a\u0438\u0442\u0430 , 16 \u043b\u0435\u0442 | \u0420\u043e\u0441\u0441\u0438\u044f \u263a\ufe0f               \u2b1c\n                                                                                      \u2b1b\n\u0420\u0430\u0431\u043e\u0442\u0430\u044e \u0432 \u0440\u0430\u0437\u043d\u044b\u0445 \u0436\u0430\u043d\u0440\u0430\u0445                    \u2b1b \n\u0411\u043e\u043b\u044c\u0448\u0435 \u0432\u0441\u0435\u0433\u043e                                                   \u2b1c\n\u041d\u0440\u0430\u0432\u044f\u0442\u0441\u044f \u0447\u0438\u043b\u043b\u0430\u0443\u0442\u044b                                    \u2b1b\n                                                                                      \u2b1c\n\u041d\u0410\u0428\u0418 music group  (MMJ)                       \u2b1b\r\n                                                                                      \u2b1b\n| kik:Mabl_Oo |                                                   \u2b1c\r\n                                                                                      \u2b1b\n|I Love :edm,dub step,                                    \u2b1b\ntrap, classical music , dnb , chill|.             \u2b1c\n                                                                                      \u2b1b\n\u25aa\ufe0f\u25ab\ufe0f\u25fe\u25fd\u25fc\ufe0f\u25fb\ufe0f\u2b1b\u25fb\ufe0f\u25fc\ufe0f\u25fd\u25fe\u25ab\ufe0f\u25aa\ufe0f",
+            "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_image\/ec0ba038-5f16-11ea-bc08-064f3e9f608e.jpeg?cb=20200305202424",
+            "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_cover_image\/c7d6454c-a80c-11e9-99f7-064f3e9f608e.jpeg?cb=20190716230045",
+            "favorite_genres": [],
+            "created": "2019-03-09T07:40:27+0100",
+            "location": {
+                "latitude": "56.465435199999",
+                "longitude": "37.569989099999",
+                "location_name": "Russia, Russia"
+            },
+            "social_accounts": [
+                {
+                    "id": 5013,
+                    "service": "instagram",
+                    "username": "nikita__fire",
+                    "followers": 321,
+                    "profile_url": "https:\/\/www.instagram.com\/nikita__fire",
+                    "created_at": "2020-03-03T15:38:21+0100"
+                }
+            ],
+            "video_shout_out_count": 0,
+            "external_songs_count": null,
+            "external_videos_count": 0,
+            "crews": []
+        },
+        "artist_name": "\u1320\u13af\u0181\u13d7\u0398\u00d8 \u4e61",
+        "duration": 137,
+        "bpm": 120,
+        "likes": 153,
+        "faves": 0,
+        "plays": 473,
+        "reposts": 0,
+        "comments": 186,
+        "description": "#Nashi #RawTalent #vocal #beat #mix #Remix #Piano #Trap #MablOne",
+        "tags": null,
+        "source_info": "ST_2_Step ST_Cloud_Rap ST_Electro_Trippin ST_Jam_Spotlight_COSTE ST_Jam_Spotlight_Tedd ST_Jam_X_Yaboii ST_Trap_Drills ST_Trap_Fire",
+        "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/cover_image\/93dc362a-5bd5-11ea-bc08-064f3e9f608e.jpeg?cb=20200301165905",
+        "cover_image_aspect_ratio": "700:700",
+        "music_file_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/music_file\/91839879-5bd5-11ea-bc08-064f3e9f608e.m4a?cb=20200301165901",
+        "music_file_mimetype": "audio\/mp4",
+        "song_genres": [],
+        "song_release": "2020-03-01T16:59:05+0100",
+        "mix_packs": [],
+        "linked_crews": []
+    },
+    {
+        "id": "35d13ca6-5ed3-11ea-bc08-064f3e9f608e",
+        "name": "Corona ParTy \u270c\ufe0f",
+        "name_seo": "corona-party-",
+        "artist": {
+            "id": "26c495bd-1322-11e8-babf-02fe9cf35e65",
+            "name": "her25",
+            "artist_name": "Kash",
+            "muted": false,
+            "place": null,
+            "country": null,
+            "followers": 778,
+            "follows": 0,
+            "liked": 3317,
+            "releases": 50,
+            "favorites": 0,
+            "description": null,
+            "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_image\/f2635c95-5ef3-11ea-bc08-064f3e9f608e.jpeg?cb=20200305161402",
+            "cover_image_path": "https:\/\/api.jam-community.com\/img\/user_bgr_default.png",
+            "favorite_genres": [],
+            "created": "2018-02-16T15:03:22+0100",
+            "location": null,
+            "social_accounts": [],
+            "video_shout_out_count": 0,
+            "external_songs_count": null,
+            "external_videos_count": 0,
+            "crews": []
+        },
+        "artist_name": "Kash",
+        "duration": 237,
+        "bpm": 79,
+        "likes": 151,
+        "faves": 0,
+        "plays": 528,
+        "reposts": 0,
+        "comments": 284,
+        "description": "Delcatied for Royze she is very talented jammer \u2764\ufe0f",
+        "tags": null,
+        "source_info": "ST_Aero_Jay_Beautiful_Disaster ST_Favela_Beats ST_Jam_Spotlight_Aerojay",
+        "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/cover_image\/35cbf513-5ed3-11ea-bc08-064f3e9f608e.jpeg?cb=20200305121942",
+        "cover_image_aspect_ratio": "700:700",
+        "music_file_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/music_file\/326c20bb-5ed3-11ea-bc08-064f3e9f608e.m4a?cb=20200305121936",
+        "music_file_mimetype": "audio\/mp4",
+        "song_genres": [
+            {
+                "id": 12,
+                "name": "World"
+            },
+            {
+                "id": 20,
+                "name": "EDM"
+            },
+            {
+                "id": 42,
+                "name": "Electronic"
+            }
+        ],
+        "song_release": "2020-03-05T12:19:42+0100",
+        "mix_packs": [],
+        "linked_crews": []
+    },
+    {
+        "id": "c6a8c93a-5b0c-11ea-bc08-064f3e9f608e",
+        "name": "Love Motel",
+        "name_seo": "love-motel",
+        "artist": {
+            "id": "77f2577d-6c87-11e6-bec4-06f575b6d04d",
+            "name": "d4nig",
+            "artist_name": "DVNI {BIC}",
+            "muted": false,
+            "place": null,
+            "country": null,
+            "followers": 1063,
+            "follows": 72,
+            "liked": 2920,
+            "releases": 116,
+            "favorites": 0,
+            "description": "doozy",
+            "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_image\/d181d36f-5f09-11ea-bc08-064f3e9f608e.jpeg?cb=20200305185036",
+            "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/profile_cover_image\/33e962af-00af-11ea-99f7-064f3e9f608e.jpeg?cb=20191106170507",
+            "favorite_genres": [],
+            "created": "2016-08-27T20:52:56+0200",
+            "location": null,
+            "social_accounts": [],
+            "video_shout_out_count": 0,
+            "external_songs_count": null,
+            "external_videos_count": 0,
+            "crews": [
+                {
+                    "id": 8170,
+                    "super_admin_id": "81673822-e899-11e7-991a-02fe9cf35e65",
+                    "max_users": 50,
+                    "name": "elsewhere",
+                    "description": "Original talents",
+                    "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/e49d1155-5f00-11ea-bc08-064f3e9f608e.jpeg?cb=20200305174642",
+                    "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_cover_image\/18d1eaf6-2116-11ea-99f7-064f3e9f608e.jpeg?cb=20191217224217",
+                    "genres": [],
+                    "type": "USER",
+                    "users": 9,
+                    "songs_count": 9,
+                    "follows": 45,
+                    "followers": 68,
+                    "date_created": "2018-08-11T17:28:03+0200",
+                    "location": null,
+                    "user_role": "ROLE_CREW_USER",
+                    "date_joined": "2019-12-26T06:29:42+0100",
+                    "new_activity": false
+                },
+                {
+                    "id": 25142,
+                    "super_admin_id": "0a05d0e8-1a34-11e7-bbf5-02fe9cf35e65",
+                    "max_users": 50,
+                    "name": "Forza Royalty",
+                    "description": "",
+                    "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/32e94bf9-ae62-11e9-99f7-064f3e9f608e.jpeg?cb=20190725002719",
+                    "cover_image_path": "https:\/\/api.jam-community.com\/img\/crew_bgr_default.png",
+                    "genres": [],
+                    "type": "USER",
+                    "users": 10,
+                    "songs_count": 23,
+                    "follows": 610,
+                    "followers": 60,
+                    "date_created": "2019-07-25T00:27:19+0200",
+                    "location": {
+                        "latitude": "52.3679843",
+                        "longitude": "4.9035614",
+                        "location_name": "Amsterdam, Netherlands"
+                    },
+                    "user_role": "ROLE_CREW_USER",
+                    "date_joined": "2019-07-29T14:09:22+0200",
+                    "new_activity": false
+                },
+                {
+                    "id": 30787,
+                    "super_admin_id": "4b41e619-3722-11e7-bd36-02fe9cf35e65",
+                    "max_users": 50,
+                    "name": "Black Ice Collective MMJ",
+                    "description": "We are the rebirth of music.\n\nIt is hardly a last rearing up.  Black Ice Collective shows you that they are still the masters of this app.  Write to RIN if you want to apply.  We are happy about unknown and of course also about familiar faces that show us the necessary talent.\n\n#BIC",
+                    "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/04b62b0b-5d97-11ea-bc08-064f3e9f608e.jpeg?cb=20200303223618",
+                    "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_cover_image\/a91f200d-36d9-11ea-99f7-064f3e9f608e.jpeg?cb=20200114152506",
+                    "genres": [],
+                    "type": "USER",
+                    "users": 22,
+                    "songs_count": 176,
+                    "follows": 16,
+                    "followers": 137,
+                    "date_created": "2020-01-12T14:22:49+0100",
+                    "location": {
+                        "latitude": "38.952819",
+                        "longitude": "-91.9390674",
+                        "location_name": "Kingdom City, United States"
+                    },
+                    "user_role": "ROLE_CREW_USER",
+                    "date_joined": "2020-01-12T20:37:53+0100",
+                    "new_activity": false
+                }
+            ]
+        },
+        "artist_name": "DVNI {BIC}",
+        "duration": 295,
+        "bpm": 0,
+        "likes": 136,
+        "faves": 0,
+        "plays": 625,
+        "reposts": 0,
+        "comments": 130,
+        "description": "#BIC Lofi house?",
+        "tags": null,
+        "source_info": "ST_Chillout_Moonlight ST_Deep_House_Series_I ST_Dreamworld ST_EDM_Percussion ST_Pop_Noir ST_Synthworld_Pads ST_The_Beach ST_Typebeat_Chance ST_Vaporwave_Vol_2",
+        "cover_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/cover_image\/c698e595-5b0c-11ea-bc08-064f3e9f608e.jpeg?cb=20200229170141",
+        "cover_image_aspect_ratio": "700:700",
+        "music_file_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/music_file\/c670f4f3-5b0c-11ea-bc08-064f3e9f608e.m4a?cb=20200229170141",
+        "music_file_mimetype": "audio\/mp4",
+        "song_genres": [
+            {
+                "id": 2,
+                "name": "House"
+            },
+            {
+                "id": 5,
+                "name": "Hip-Hop & Rap"
+            },
+            {
+                "id": 6,
+                "name": "Lounge"
+            },
+            {
+                "id": 16,
+                "name": "Ambient"
+            },
+            {
+                "id": 20,
+                "name": "EDM"
+            },
+            {
+                "id": 32,
+                "name": "Synthwave"
+            },
+            {
+                "id": 42,
+                "name": "Electronic"
+            },
+            {
+                "id": 43,
+                "name": "Pop"
+            }
+        ],
+        "song_release": "2020-02-29T17:01:41+0100",
+        "mix_packs": [],
+        "linked_crews": [
+            {
+                "id": 30787,
+                "name": "Black Ice Collective MMJ",
+                "profile_image_path": "https:\/\/d28l47h1uhvbhl.cloudfront.net\/assets\/crew_profile_image\/04b62b0b-5d97-11ea-bc08-064f3e9f608e.jpeg?cb=20200303223618"
+            }
+        ]
+    }
+]]
