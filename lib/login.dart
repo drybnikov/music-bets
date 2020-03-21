@@ -8,19 +8,23 @@ import 'ChartList.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/ThemeBloc.dart';
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Music Bets',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.amber,
-      ),
-      home: LoginScreen(title: 'Music Bets'),
-      debugShowCheckedModeBanner: false,
-    );
+    return BlocProvider(
+        create: (_) => ThemeBloc(),
+        child: BlocBuilder<ThemeBloc, ThemeData>(builder: (_, theme) {
+          return MaterialApp(
+            title: 'Music Bets',
+            theme: theme,
+            home: LoginScreen(title: 'Music Bets'),
+            debugShowCheckedModeBanner: false,
+          );
+        }));
   }
 }
 
@@ -61,12 +65,7 @@ class LoginScreenState extends State<LoginScreen> {
 
     isLoggedIn = await googleSignIn.isSignedIn();
     if (isLoggedIn) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                ChartList(currentUserId: prefs.getString('id'))),
-      );
+      _navigateToChart(prefs.getString('id'));
     }
 
     this.setState(() {
@@ -129,17 +128,21 @@ class LoginScreenState extends State<LoginScreen> {
         isLoading = false;
       });
 
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  ChartList(currentUserId: firebaseUser.uid)));
+      _navigateToChart(firebaseUser.uid);
     } else {
       Fluttertoast.showToast(msg: "Sign in fail");
       this.setState(() {
         isLoading = false;
       });
     }
+  }
+
+  _navigateToChart(String currentUserId) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            maintainState: false,
+            builder: (context) => ChartListHome(currentUserId: currentUserId)));
   }
 
   @override
@@ -181,6 +184,16 @@ class LoginScreenState extends State<LoginScreen> {
                   : Container(),
             ),
           ],
-        ));
+        ),
+        floatingActionButton: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              FloatingActionButton(
+                child: Icon(Icons.update),
+                onPressed: () =>
+                    context.bloc<ThemeBloc>().add(ThemeEvent.toggle),
+              )
+            ]));
   }
 }

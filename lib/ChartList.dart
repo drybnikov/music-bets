@@ -3,12 +3,13 @@ import 'dart:developer' as developer;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'bloc/ThemeBloc.dart';
 import 'BalanceBar.dart';
 
 import 'ui/ConfirmationWidget.dart';
 import 'AudioPlayerDemo.dart';
 import 'Positions.dart';
-import 'login.dart';
 import 'model/MediaItem.dart';
 import 'model/Position.dart';
 import 'network/MediaRepository.dart';
@@ -17,8 +18,6 @@ import 'styles.dart';
 
 import 'chipsInput.dart';
 
-void main() => runApp(MyApp());
-
 class ChartList extends StatelessWidget {
   final String currentUserId;
 
@@ -26,14 +25,14 @@ class ChartList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Music Bets',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.amber,
-      ),
-      home: ChartListHome(currentUserId: currentUserId),
-    );
+    return BlocProvider.value(
+        value: context.bloc<ThemeBloc>(),
+        child: BlocBuilder<ThemeBloc, ThemeData>(builder: (_, theme) {
+          return MaterialApp(
+            theme: theme,
+            home: ChartListHome(currentUserId: currentUserId),
+          );
+        }));
   }
 }
 
@@ -75,6 +74,7 @@ class _ChartListHome extends State<ChartListHome> {
                 ),
                 onPressed: _openPositions),
             IconButton(icon: Icon(Icons.input), onPressed: _openChips),
+            IconButton(icon: Icon(Icons.update), onPressed: _switchTheme),
           ],
         ),
         body: _buildBody(context),
@@ -99,6 +99,10 @@ class _ChartListHome extends State<ChartListHome> {
         },
       ),
     );
+  }
+
+  void _switchTheme() {
+    context.bloc<ThemeBloc>().add(ThemeEvent.toggle);
   }
 
   Widget _buildBody(BuildContext context) {
