@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/ThemeBloc.dart';
+import 'authentication/authentication.dart';
 import 'BalanceBar.dart';
 
 import 'ui/ConfirmationWidget.dart';
@@ -75,6 +76,7 @@ class _ChartListHome extends State<ChartListHome> {
                 onPressed: _openPositions),
             IconButton(icon: Icon(Icons.input), onPressed: _openChips),
             IconButton(icon: Icon(Icons.update), onPressed: _switchTheme),
+            IconButton(icon: Icon(Icons.exit_to_app), onPressed: _loggedOut),
           ],
         ),
         body: _buildBody(context),
@@ -99,6 +101,10 @@ class _ChartListHome extends State<ChartListHome> {
         },
       ),
     );
+  }
+
+  void _loggedOut() {
+    context.bloc<AuthenticationBloc>().add(LoggedOut());
   }
 
   void _switchTheme() {
