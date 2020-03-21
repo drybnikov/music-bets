@@ -28,12 +28,29 @@ class _LoginFormState extends State<LoginForm> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginFailure) {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text('${state.error}'),
-              backgroundColor: Colors.red,
-            ),
-          );
+          Scaffold.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: Text('${state.error}'),
+                backgroundColor: Colors.red,
+              ),
+            );
+        }
+        if (state is LoginLoading) {
+          Scaffold.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Logging In...'),
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              ),
+            );
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
@@ -74,12 +91,7 @@ class _LoginFormState extends State<LoginForm> {
                                     : null,
                                 child: Text('Login'),
                               ),
-                              GoogleLoginButton(),
-                              Container(
-                                child: state is LoginLoading
-                                    ? CircularProgressIndicator()
-                                    : null,
-                              ),
+                              GoogleLoginButton()
                             ]))
                   ],
                 ),

@@ -9,6 +9,7 @@ import 'authentication/authentication.dart';
 import 'BalanceBar.dart';
 
 import 'ui/ConfirmationWidget.dart';
+import 'ui/extra_actions.dart';
 import 'AudioPlayerDemo.dart';
 import 'Positions.dart';
 import 'model/MediaItem.dart';
@@ -16,8 +17,6 @@ import 'model/Position.dart';
 import 'network/MediaRepository.dart';
 import 'network/PositionRepository.dart';
 import 'styles.dart';
-
-import 'chipsInput.dart';
 
 class ChartList extends StatelessWidget {
   final String currentUserId;
@@ -67,30 +66,18 @@ class _ChartListHome extends State<ChartListHome> {
         appBar: AppBar(
           title: Text('Weekly Chart'),
           centerTitle: true,
-          actions: <Widget>[
+          actions: [
             IconButton(
                 icon: Icon(
                   Icons.developer_board,
                   color: Colors.cyanAccent,
                 ),
                 onPressed: _openPositions),
-            IconButton(icon: Icon(Icons.input), onPressed: _openChips),
-            IconButton(icon: Icon(Icons.update), onPressed: _switchTheme),
-            IconButton(icon: Icon(Icons.exit_to_app), onPressed: _loggedOut),
+            ExtraActions()
           ],
         ),
         body: _buildBody(context),
         bottomNavigationBar: _balanceBar);
-  }
-
-  void _openChips() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) {
-          return ChipsPage();
-        },
-      ),
-    );
   }
 
   void _openPositions() {
