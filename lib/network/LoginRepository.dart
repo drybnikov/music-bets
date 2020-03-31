@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,23 +23,43 @@ class LoginRepository {
       idToken: googleAuth.idToken,
     );
 
-    return (await _firebaseAuth.signInWithCredential(credential)).user;
+    FirebaseUser firebaseUser =
+        (await _firebaseAuth.signInWithCredential(credential)).user;
+    updateUser(firebaseUser);
+
+    return firebaseUser;
+  }
+
+  void updateUser(FirebaseUser firebaseUser) async {
+    final QuerySnapshot result = await Firestore.instance
+        .collection('users')
+        .where('id', isEqualTo: firebaseUser.uid)
+        .getDocuments();
+    final List<DocumentSnapshot> documents = result.documents;
+    if (documents.length == 0) {
+      // Update data to server if new user
+      Firestore.instance
+          .collection('users')
+          .document(firebaseUser.uid)
+          .setData({
+        'nickname': firebaseUser.displayName,
+        'photoUrl': firebaseUser.photoUrl,
+        'id': firebaseUser.uid,
+        'createdAt': DateTime.now().millisecondsSinceEpoch.toString()
+      });
+    }
   }
 
   Future<FirebaseUser> signInWithCredentials(
       String email, String password) async {
     return (await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    ))
+            email: email, password: password))
         .user;
   }
 
   Future<void> signUp({String email, String password}) async {
     return await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+        email: email, password: password);
   }
 
   Future<void> persistToken(String token) async {

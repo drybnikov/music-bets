@@ -19,7 +19,7 @@ void main() {
       'emits [dark, dark] when ThemeEvent.toggle is added',
       build: () => themeBloc,
       act: (bloc) => bloc.add(ThemeEvent.toggle),
-      expect: [ThemeData.dark(), ThemeData.dark()],
+      expect: [ThemeData.dark(), ThemeData.light()],
     );
   });
 }
