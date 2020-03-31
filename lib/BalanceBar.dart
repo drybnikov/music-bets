@@ -32,6 +32,8 @@ class BalanceBar extends StatelessWidget {
   }
 
   Widget _buildBalanceBar(BuildContext context, DocumentSnapshot snapshot) {
+    if (snapshot.data == null) return Container();
+
     currentUser = User.fromSnapshot(snapshot);
     developer.log(
         "_buildBalanceBar snapshot for user:${currentUser.id}, currentProfit:${currentUser.profit}");
@@ -76,8 +78,10 @@ class BalanceBar extends StatelessWidget {
           position, currentChartPosition, pnl, position.expired.isNegative);
     });
 
-    currentUser.reference
-        .updateData({'pnl': _balance.currentPnl, 'profit': _balance.profit});
+    if (currentUser != null) {
+      currentUser.reference
+          .updateData({'pnl': _balance.currentPnl, 'profit': _balance.profit});
+    }
   }
 
   int _findCurrentChartPosition(

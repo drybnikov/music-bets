@@ -45,7 +45,10 @@ class LoginRepository {
         'nickname': firebaseUser.displayName,
         'photoUrl': firebaseUser.photoUrl,
         'id': firebaseUser.uid,
-        'createdAt': DateTime.now().millisecondsSinceEpoch.toString()
+        'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
+        'balance': '100.00',
+        'pnl': 0,
+        'profit': 0
       });
     }
   }
